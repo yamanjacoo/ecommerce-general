@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     "Eleika : Your one-stop shop for high-quality equipment and solutions for every project",
   keywords:
     "Eleika , equipment, tools, home improvement, outdoor power equipment, appliances, lawn mower",
+  verification: {
+    google: "0u0Vq-as1cDppgmYgQaiCP0egs4IL0omG-m1wbbaArc",
+    yandex: "yandex",
+    yahoo: "yahoo",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +32,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="0u0Vq-as1cDppgmYgQaiCP0egs4IL0omG-m1wbbaArc"
+        />
+      </head>
       <body className="overflow-x-hidden">
         <Toaster position="top-center" reverseOrder={false} />
         <CartProvider>
