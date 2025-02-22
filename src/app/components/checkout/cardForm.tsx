@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
 
 interface CardPaymentFormProps {
   checkoutId: string;
@@ -61,15 +60,11 @@ export default function CardPaymentForm({
     setIsProcessing(true);
 
     try {
-      // Extract month and year from expiry
       const [month, year] = cardData.expiry.split("/");
 
-      // Process the payment
       const response = await fetch(`/api/process-checkout`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           checkoutId,
           card: {
@@ -85,22 +80,41 @@ export default function CardPaymentForm({
       });
 
       const data = await response.json();
-      console.log("EROOOOOOOR", data["data"]["status"]);
-      console.log("EROOOOOOOR", data);
-      if (data["data"]["status"] == "FAILED") {
+
+      if (data["data"]["status"] === "FAILED") {
         throw new Error(data.error || "Payment failed");
       }
 
-      // Handle 3D Secure redirect if needed
-      if (data.next_step?.redirect_url) {
-        window.location.href = data.next_step.redirect_url;
+      if (data["data"]["next_step"]?.url) {
+        const { url, method, payload, mechanism } = data["data"]["next_step"];
+
+        if (mechanism.includes("iframe")) {
+          // Open 3DS challenge in an iframe
+          setThreeDSecure({ url, method, payload });
+        } else {
+          // Redirect to 3D Secure page
+          const form = document.createElement("form");
+          form.method = method;
+          form.action = url;
+          form.style.display = "none";
+
+          Object.keys(payload).forEach((key) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = payload[key];
+            form.appendChild(input);
+          });
+
+          document.body.appendChild(form);
+          form.submit();
+        }
         return;
       }
+
       onSuccess();
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Payment failed";
-      onError(errorMessage);
+      onError(error instanceof Error ? error.message : "Payment failed");
     } finally {
       setIsProcessing(false);
     }
@@ -110,65 +124,78 @@ export default function CardPaymentForm({
     style: "currency",
     currency: "EUR",
   }).format(amount);
-
+  const [threeDSecure, setThreeDSecure] = useState<{
+    url: string;
+    method: string;
+    payload: Record<string, string>;
+  } | null>(null);
   return (
-    <form onSubmit={processPayment} className="space-y-4 w-full">
-      <div className="space-y-2">
-        <Label htmlFor="name">Cardholder Name</Label>
-        <Input
-          id="name"
-          name="name"
-          placeholder="John Doe"
-          value={cardData.name}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="number">Card Number</Label>
-        <Input
-          id="number"
-          name="number"
-          placeholder="4111 1111 1111 1111"
-          value={cardData.number}
-          onChange={handleInputChange}
-          required
-          maxLength={19}
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
+    <>
+      <form onSubmit={processPayment} className="space-y-4 w-full">
         <div className="space-y-2">
-          <Label htmlFor="expiry">Expiry Date</Label>
+          <Label htmlFor="name">Cardholder Name</Label>
           <Input
-            id="expiry"
-            name="expiry"
-            placeholder="MM/YY"
-            value={cardData.expiry}
+            id="name"
+            name="name"
+            placeholder="John Doe"
+            value={cardData.name}
             onChange={handleInputChange}
             required
-            maxLength={5}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="cvv">cvv</Label>
+          <Label htmlFor="number">Card Number</Label>
           <Input
-            id="cvv"
-            name="cvv"
-            placeholder="123"
-            value={cardData.cvv}
+            id="number"
+            name="number"
+            placeholder="4111 1111 1111 1111"
+            value={cardData.number}
             onChange={handleInputChange}
             required
-            maxLength={4}
+            maxLength={19}
           />
         </div>
-      </div>
 
-      <Button type="submit" className="w-full" disabled={isProcessing}>
-        {isProcessing ? "Processing..." : `Pay ${formattedAmount}`}
-      </Button>
-    </form>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="expiry">Expiry Date</Label>
+            <Input
+              id="expiry"
+              name="expiry"
+              placeholder="MM/YY"
+              value={cardData.expiry}
+              onChange={handleInputChange}
+              required
+              maxLength={5}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="cvv">cvv</Label>
+            <Input
+              id="cvv"
+              name="CVV"
+              placeholder="CVV"
+              value={cardData.cvv}
+              onChange={handleInputChange}
+              required
+              maxLength={4}
+            />
+          </div>
+        </div>
+
+        <Button type="submit" className="w-full py-4" disabled={isProcessing}>
+          {isProcessing ? "Processing..." : `Pay ${formattedAmount}`}
+        </Button>
+      </form>
+      {threeDSecure && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded-lg">
+            <iframe src={threeDSecure.url} width="400" height="400" />
+          </div>
+        </div>
+      )}
+    </>
   );
 }

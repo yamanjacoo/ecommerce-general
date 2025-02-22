@@ -185,11 +185,12 @@ const CheckoutPage = () => {
           <h2 className="text-xl font-semibold mb-4">Payment</h2>
 
           {/* CREDIT CARD ACCORDION ITEM */}
+
           <div className="">
             {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("credit-card")}
-              className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer rounded-t-lg border-2 ${
+              className={`flex items-center justify-between p-4  bg-[#F5F5F5] cursor-pointer rounded-t-lg border-2 ${
                 openMethod === "credit-card"
                   ? "border-black"
                   : "border-transparent"
@@ -255,13 +256,14 @@ const CheckoutPage = () => {
               )}
             </div>
           </div>
+          <div className="h-[1px] w-full bg-gray-300 "></div>
 
           {/* PAYPAL ACCORDION ITEM */}
           <div className="mb-2">
             {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("paypal")}
-              className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer  border-2 ${
+              className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer   border-2 ${
                 openMethod === "paypal" ? "border-black" : "border-transparent"
               }`}
             >
@@ -308,12 +310,6 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Proceed Button (for Credit Card only) */}
-        {/* {openMethod === "credit-card" && (
-          <Button type="submit" className="w-full" disabled={isProcessing}>
-            {isProcessing ? "Processing..." : `Pay ${formattedAmount}`}
-          </Button>
-        )} */}
         {openMethod === "paypal" && (
           <SimplePayPalButton amount={formattedAmount} />
         )}
