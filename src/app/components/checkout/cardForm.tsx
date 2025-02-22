@@ -175,7 +175,7 @@ export default function CardPaymentForm({
             <Label htmlFor="cvv">cvv</Label>
             <Input
               id="cvv"
-              name="CVV"
+              name="cvv"
               placeholder="CVV"
               value={cardData.cvv}
               onChange={handleInputChange}
