@@ -7,6 +7,8 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import CardPaymentForm from "../../components/checkout/cardForm";
+import { Button } from "@/components/ui/button";
 
 declare global {
   interface Window {
@@ -299,7 +301,19 @@ const CheckoutPage = () => {
                       Loading payment form...
                     </div>
                   ) : (
-                    <div id="sumup-card" className="w-full" />
+                    <CardPaymentForm
+                      checkoutId={checkoutId as string}
+                      amount={Number(product.price)}
+                      onSuccess={() => {
+                        // Handle successful payment
+                        toast.success("Payment successful");
+                      }}
+                      onError={(error) => {
+                        // Handle payment error
+                        toast.error("Failed to initialize payment");
+                      }}
+                    />
+                    // <div id="sumup-card" className="w-full" />
                   )}
                 </div>
               )}
@@ -368,18 +382,21 @@ const CheckoutPage = () => {
 
         {/* Proceed Button (for Credit Card only) */}
         {openMethod === "credit-card" && (
-          <button
-            onClick={handleSubmit}
-            disabled={isLoading || isProcessing}
-            className="w-full h-12 text-base font-medium mt-6 bg-black text-white rounded"
-          >
-            {isLoading
-              ? "Loading form..."
-              : isProcessing
-              ? "Processing Payment..."
-              : `Pay $${product.price}`}{" "}
-            USD
-          </button>
+          <Button type="submit" className="w-full" disabled={isProcessing}>
+            {isProcessing ? "Processing..." : `Pay ${formattedAmount}`}
+          </Button>
+          // <button
+          //   onClick={handleSubmit}
+          //   disabled={isLoading || isProcessing}
+          //   className="w-full h-12 text-base font-medium mt-6 bg-black text-white rounded"
+          // >
+          //   {isLoading
+          //     ? "Loading form..."
+          //     : isProcessing
+          //     ? "Processing Payment..."
+          //     : `Pay $${product.price}`}{" "}
+          //   USD
+          // </button>
         )}
         {openMethod === "paypal" && (
           <SimplePayPalButton amount={formattedAmount} />
