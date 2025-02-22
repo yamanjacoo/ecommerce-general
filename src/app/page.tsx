@@ -1,9 +1,10 @@
-import HeroSection from "./components/HeroSection"
-import FeaturedCategories from "./components/FeaturedCategories"
-import ProductSections from "./components/ProductSections"
-import Newsletter from "./components/Newsletter"
-import TestimonialScroll from "./components/TestimonialScroll"
-import TrustedBrands from "./components/TrustedBrands"
+import HeroSection from "./components/HeroSection";
+import FeaturedCategories from "./components/FeaturedCategories";
+import ProductSections from "./components/ProductSections";
+import Newsletter from "./components/Newsletter";
+import TestimonialScroll from "./components/TestimonialScroll";
+import TrustedBrands from "./components/TrustedBrands";
+import { ToastBar, Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
@@ -15,6 +16,5 @@ export default function Home() {
       <TestimonialScroll />
       <Newsletter />
     </main>
-  )
+  );
 }
-

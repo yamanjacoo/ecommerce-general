@@ -37,8 +37,6 @@ const CheckoutPage = () => {
 
   const sumUpCardRef = useRef<any>(null);
   const router = useRouter();
-
-  // Load the SumUp script once
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js";
@@ -84,6 +82,7 @@ const CheckoutPage = () => {
           }
         },
         showSubmitButton: false,
+
         preferredPaymentMethods: ["card", "applePay", "googlePay"],
       });
     }
@@ -378,7 +377,8 @@ const CheckoutPage = () => {
               ? "Loading form..."
               : isProcessing
               ? "Processing Payment..."
-              : `Pay ${product.price}`}
+              : `Pay $${product.price}`}{" "}
+            USD
           </button>
         )}
         {openMethod === "paypal" && (
