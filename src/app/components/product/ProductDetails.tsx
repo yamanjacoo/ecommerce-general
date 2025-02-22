@@ -52,7 +52,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-8 max-w-7xl mb-16">
+    <div className="md:mx-auto md:container grid md:grid-cols-2 gap-8 max-w-7xl mb-16">
       {/* Image Gallery */}
       <div className="space-y-4">
         <div className="relative aspect-square">
