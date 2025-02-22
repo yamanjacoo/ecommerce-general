@@ -190,7 +190,7 @@ export default function CardPaymentForm({
         </Button>
       </form>
       {threeDSecure && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset z-100000 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg">
             <iframe src={threeDSecure.url} width="400" height="400" />
           </div>
