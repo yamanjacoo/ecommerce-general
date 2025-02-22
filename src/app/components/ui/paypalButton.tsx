@@ -4,6 +4,7 @@ import {
   PayPalButtons,
   FUNDING,
 } from "@paypal/react-paypal-js";
+import { DEFAULT_CURRENCY } from "../currency";
 
 interface SimplePayPalButtonProps {
   amount: string;
@@ -21,7 +22,7 @@ export default function SimplePayPalButton({
       options={{
         clientId:
           "Ab-_RGJfzR_nlzigMBpi7ca4fNNjS2nlqTdRUylABhCLkVUTZy7KdOWb9xPEGmNq262xkObg7NQlzLN6",
-        currency: "USD",
+        currency: DEFAULT_CURRENCY.code,
       }}
     >
       <PayPalButtons

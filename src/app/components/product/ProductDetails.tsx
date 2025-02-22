@@ -11,6 +11,7 @@ import type { Product } from "../../types/product"; // Changed from "@/app/types
 import { useRouter } from "next/navigation";
 import { PaymentsLogos } from "../ui/paymentsLogos";
 import { AddToCartButton } from "../ui/addToCartButton";
+import { DEFAULT_CURRENCY } from "../currency";
 
 interface ProductDetailsProps {
   product: Product;
@@ -150,11 +151,13 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         <div className="space-y-2">
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold">
-              ${calculatedPrice.toFixed(2)}
+              {DEFAULT_CURRENCY.symbol}
+              {calculatedPrice.toFixed(2)}
             </span>
             {product.CompareAtPrice && (
               <span className="text-lg text-gray-500 line-through">
-                ${(product.CompareAtPrice * quantity).toFixed(2)}
+                {DEFAULT_CURRENCY.symbol}
+                {(product.CompareAtPrice * quantity).toFixed(2)}
               </span>
             )}
             {discount > 0 && (

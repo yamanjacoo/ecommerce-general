@@ -7,6 +7,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { DEFAULT_CURRENCY } from "../../components/currency";
 
 declare global {
   interface Window {
@@ -379,8 +380,7 @@ const CheckoutPage = () => {
               ? "Loading form..."
               : isProcessing
               ? "Processing Payment..."
-              : `Pay ${product.price}`}
-            : `Pay $${product.price}` USD
+              : `Pay ${DEFAULT_CURRENCY.symbol} ${product.price} ${DEFAULT_CURRENCY.code}`}
           </button>
         )}
         {openMethod === "paypal" && (
@@ -410,7 +410,10 @@ const CheckoutPage = () => {
           </div>
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span>${product?.price}</span>
+            <span>
+              {DEFAULT_CURRENCY.symbol}
+              {product?.price}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Shipping</span>
@@ -418,7 +421,10 @@ const CheckoutPage = () => {
           </div>
           <div className="flex justify-between font-bold">
             <span>Total</span>
-            <span>${product?.price}</span>
+            <span>
+              {DEFAULT_CURRENCY.symbol}
+              {product?.price} {DEFAULT_CURRENCY.code}
+            </span>
           </div>
         </div>
       </div>

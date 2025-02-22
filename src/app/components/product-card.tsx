@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Star, ShoppingCart, Package, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
 import {
   Tooltip,
   TooltipContent,
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import type { Product } from "../types/product";
 import { useRouter } from "next/navigation";
+import { DEFAULT_CURRENCY } from "./currency";
 
 interface ProductCardProps {
   product: Product;
@@ -116,11 +118,13 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <span className="text-xl font-bold">
-                ${product.DiscountedPrice.toFixed(2)}
+                {DEFAULT_CURRENCY.symbol}
+                {product.DiscountedPrice.toFixed(2)}
               </span>
               {product.CompareAtPrice && (
                 <span className="text-sm text-gray-500 line-through">
-                  ${product.CompareAtPrice.toFixed(2)}
+                  {DEFAULT_CURRENCY.symbol}
+                  {product.CompareAtPrice.toFixed(2)}
                 </span>
               )}
             </div>
