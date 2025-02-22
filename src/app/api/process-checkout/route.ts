@@ -14,9 +14,12 @@ export async function PUT(request: Request) {
         number: card.number,
         expiry_month: card.expiry_month,
         expiry_year: card.expiry_year,
-        cvc: card.cvc,
+        cvv: card.cvv,
         name: card.name,
+        last_4_digits:card.last_4_digits,
+
       },
+
     }
 
     const processResponse = await fetch(`https://api.sumup.com/v0.1/checkouts/${checkoutId}`, {

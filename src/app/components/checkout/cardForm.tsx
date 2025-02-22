@@ -22,11 +22,10 @@ export default function CardPaymentForm({
   onError,
 }: CardPaymentFormProps) {
   const [isProcessing, setIsProcessing] = useState(false);
-  const { toast } = useToast();
   const [cardData, setCardData] = useState({
     number: "",
     expiry: "",
-    cvc: "",
+    cvv: "",
     name: "",
   });
 
@@ -47,8 +46,7 @@ export default function CardPaymentForm({
         .replace(/\D/g, "")
         .slice(0, 16)
         .replace(/(\d{4})(?=\d)/g, "$1 ");
-    } else if (name === "cvc") {
-      // Only allow numbers and max 4 digits
+    } else if (name === "cvv") {
       formattedValue = value.replace(/\D/g, "").slice(0, 4);
     }
 
@@ -67,7 +65,7 @@ export default function CardPaymentForm({
       const [month, year] = cardData.expiry.split("/");
 
       // Process the payment
-      const response = await fetch("/api/process-checkout", {
+      const response = await fetch(`/api/process-checkout`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -78,15 +76,18 @@ export default function CardPaymentForm({
             number: cardData.number.replace(/\s/g, ""),
             expiry_month: month,
             expiry_year: `20${year}`,
-            cvc: cardData.cvc,
+            cvv: cardData.cvv,
             name: cardData.name,
+            last_4_digits: cardData.number.replace(/\s/g, "").slice(-4),
           },
+          payment_type: "card",
         }),
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
+      console.log("EROOOOOOOR", data["data"]["status"]);
+      console.log("EROOOOOOOR", data);
+      if (data["data"]["status"] == "FAILED") {
         throw new Error(data.error || "Payment failed");
       }
 
@@ -95,21 +96,10 @@ export default function CardPaymentForm({
         window.location.href = data.next_step.redirect_url;
         return;
       }
-
-      // Payment successful
-      toast({
-        title: "Payment Successful",
-        description: "Your payment has been processed successfully.",
-      });
       onSuccess();
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Payment failed";
-      toast({
-        title: "Payment Failed",
-        description: errorMessage,
-        variant: "destructive",
-      });
       onError(errorMessage);
     } finally {
       setIsProcessing(false);
@@ -163,12 +153,12 @@ export default function CardPaymentForm({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="cvc">CVC</Label>
+          <Label htmlFor="cvv">cvv</Label>
           <Input
-            id="cvc"
-            name="cvc"
+            id="cvv"
+            name="cvv"
             placeholder="123"
-            value={cardData.cvc}
+            value={cardData.cvv}
             onChange={handleInputChange}
             required
             maxLength={4}

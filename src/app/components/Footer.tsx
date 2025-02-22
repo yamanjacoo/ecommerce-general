@@ -144,7 +144,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Section */}
-          <div>
+          {/* <div>
             <h3 className="text-primary font-bold text-lg mb-4">Newsletter</h3>
             <p className="text-gray-600 mb-4">
               Subscribe for updates and exclusive offers.
@@ -166,7 +166,7 @@ export default function Footer() {
                 <ArrowRight className="ml-2 w-4 h-4" />
               </button>
             </form>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom Section */}

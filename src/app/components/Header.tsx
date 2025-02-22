@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ShoppingCart, Heart, User, Search } from "lucide-react";
-import Image from "next/image";
+import { ShoppingCart, Heart, User, Search, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const pathname = usePathname();
@@ -12,13 +13,57 @@ export default function Header() {
   if (pathname.startsWith("/checkout")) return null;
 
   return (
-    <header className="sticky top-0 z-50 mx-auto my-0 flex w-full flex-wrap content-center items-center justify-between border-b border-black bg-white">
+    <header className="sticky top-0 z-50 mx-auto my-0 flex w-full flex-wrap   content-center items-center justify-between border-b border-black bg-white">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold">
-          <Image src="/applogo.png" alt="" height={120} width={120} />
-        </Link>
+        <div className="flex w-full items-center justify-between gap-2">
+          <Link href="/" className="text-2xl font-bold">
+            <img src="/applogo.png" alt="App Logo" className="h-8" />
+          </Link>
+          <Sheet>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <nav className="flex flex-col gap-4 mt-8">
+                <Link
+                  href="/products"
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  All Products
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  Hot Deals
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  Mowers
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  Coffee machines
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-lg font-medium hover:text-primary"
+                >
+                  About
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
 
-        <nav className="hidden md:flex space-x-4">
+        <nav className="hidden md:flex w-full space-x-4 items-end justify-end">
           <Link href="/products" className="hover:text-primary">
             All Products
           </Link>
@@ -35,27 +80,6 @@ export default function Header() {
             About
           </Link>
         </nav>
-
-        <div className="flex items-center space-x-4">
-          <button
-            aria-label="Search"
-            className="p-2 hover:bg-secondary rounded-full"
-          >
-            <Search size={20} />
-          </button>
-          <Link
-            href="/wishlist"
-            className="p-2 hover:bg-secondary rounded-full"
-          >
-            <Heart size={20} />
-          </Link>
-          <Link href="/cart" className="p-2 hover:bg-secondary rounded-full">
-            <ShoppingCart size={20} />
-          </Link>
-          <Link href="/account" className="p-2 hover:bg-secondary rounded-full">
-            <User size={20} />
-          </Link>
-        </div>
       </div>
     </header>
   );
