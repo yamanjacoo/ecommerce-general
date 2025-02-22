@@ -1,0 +1,771 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {%- assign formatted_balance = gift_card.balance | money_without_trailing_zeros | strip_html -%}
+
+    <title>{{ 'gift_cards.issued.title' | t: value: formatted_balance, shop: shop.name }}</title>
+
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    {{ content_for_header }}
+
+    {%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+  :root {
+    --font-body-family: 'Inter', sans-serif;
+    --font-heading-family: 'Inter', sans-serif;
+    /* Other custom properties remain here */
+  }
+
+  body {
+    font-family: var(--font-body-family);
+  }
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+     
+    {% endstyle %}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+
+    {{ 'myFile.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body>
+    <aside role="complementary" class="miniTopdetails">
+      <button class="order-summary-toggle">
+        <span class="wrap">
+          <span class="order-summary-toggle__inner">
+            <span class="order-summary-toggle__icon-wrapper"></span>
+            <span class="miniTopdetails">
+              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"
+                ></path>
+              </svg>
+              <span class="order-summary__emphasis total-recap__final-price skeleton-while-loading">
+                $99
+              </span>
+            </span>
+          </span>
+        </span>
+      </button>
+    </aside>
+
+    <div class="content" data-content="">
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            <h1 class="visually-hidden">Information</h1>
+            <div class="shown-if-js" data-alternative-payments=""></div>
+          </header>
+          <main class="main__content" role="main">
+            <div class="step" data-step="contact_information" data-last-step="false">
+              <form
+                class="edit_checkout animate-floating-labels"
+                novalidate="novalidate"
+                data-customer-information-form="true"
+                data-email-or-phone="false"
+                accept-charset="UTF-8"
+                method="post"
+              >
+                <input type="hidden" name="_method" value="patch" />
+                <input type="hidden" name="authenticity_token" />
+                <input type="hidden" name="previous_step" id="previous_step" value="contact_information" />
+                <input type="hidden" name="step" value="shipping_method" />
+
+                <div class="step__sections">
+                  <div class="section section--contact-information">
+                    <div class="express">EXPRESS CHECKOUT</div>
+                    <div class="payment-buttons">
+                      <a
+                        id="continue_button"
+                        class="payment-button"
+                        aria-busy="false"
+                        href="https://pay.sumup.com/b2c/QYJMPVRG"
+                      >
+                        <img
+                          src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fapay.svg?alt=media&token=2a26f752-8816-437b-bd8c-c5b27ac8c712"
+                          alt="Apple Pay"
+                          style="height: 60px; width: 60px"
+                        />
+                      </a>
+                      <a
+                        id="continue_button"
+                        class="payment-button"
+                        aria-busy="false"
+                        href="https://pay.sumup.com/b2c/QYJMPVRG"
+                      >
+                        <img
+                          src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fgpay.svg?alt=media&token=74dfed25-c9a8-4954-9e40-0bbebe876273"
+                          alt="Google Pay"
+                          style="height: 60px; width: 60px"
+                        />
+                      </a>
+                      <div id="gpay"></div>
+                    </div>
+                    <div class="divider">OR</div>
+                    <div class="section__header">
+                      <div class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap">
+                        <h2 class="section__title" id="main-header" tabindex="-1">
+                          Contact information
+                        </h2>
+                      </div>
+                    </div>
+                    <div
+                      class="section__content"
+                      data-section="customer-information"
+                      data-shopify-pay-validate-on-load="false"
+                    >
+                      <div class="fieldset">
+                        <div data-shopify-pay-email-flow="false" class="field field--required">
+                          <div class="field__input-wrapper">
+                            <label class="field__label field__label--visible" for="checkout_email">
+                              Email
+                            </label>
+                            <input
+                              placeholder="Email"
+                              autocapitalize="off"
+                              spellcheck="false"
+                              autocomplete="shipping email"
+                              data-autofocus="true"
+                              data-backup="customer_email"
+                              aria-describedby="checkout-context-step-one"
+                              aria-required="true"
+                              class="field__input"
+                              size="30"
+                              type="email"
+                              name="checkout[email]"
+                              id="checkout_email"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="fieldset-description" data-buyer-accepts-marketing="">
+                        <div class="section__content">
+                          <div class="checkbox-wrapper">
+                            <div class="checkbox__input">
+                              <input
+                                name="checkout[buyer_accepts_marketing]"
+                                type="hidden"
+                                value="0"
+                              />
+                              <input
+                                class="input-checkbox"
+                                data-backup="buyer_accepts_marketing"
+                                type="checkbox"
+                                value="1"
+                                checked
+                                name="checkout[buyer_accepts_marketing]"
+                                id="checkout_buyer_accepts_marketing"
+                              />
+                            </div>
+                            <label class="checkbox__label" for="checkout_buyer_accepts_marketing">
+                              Keep me up to date on news and exclusive offers
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="section" data-shipping-address="">
+                    <div class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap">
+                      <h2 class="section__title" id="main-header" tabindex="-1">
+                        Delivery
+                      </h2>
+                    </div>
+                    <div class="section__content">
+                      <div class="fieldset">
+                        <div class="address-fields" data-address-fields="">
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping given-name"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="first_name"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][first_name]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping family-name"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="last_name"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][last_name]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping street-address"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="address1"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][address1]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping address-level2"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="city"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][city]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping country"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="country"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][country]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping address-level1"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="province"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][province]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping postal-code"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="zip"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][zip]"
+                          />
+                          <input
+                            class="visually-hidden"
+                            autocomplete="shipping tel"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            aria-label="no-label"
+                            data-autocomplete-field="phone"
+                            data-honeypot="true"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][phone]"
+                          />
+
+                          <div class="field field--required field--half" data-address-field="first_name">
+                            <div class="field__input-wrapper">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_first_name">
+                                First name
+                              </label>
+                              <input
+                                placeholder="First name"
+                                autocomplete="shipping given-name"
+                                autocorrect="off"
+                                data-backup="first_name"
+                                class="field__input"
+                                aria-required="true"
+                                size="30"
+                                type="text"
+                                name="checkout[shipping_address][first_name]"
+                                id="checkout_shipping_address_first_name"
+                              />
+                            </div>
+                          </div>
+                          <div class="field field--required field--half" data-address-field="last_name">
+                            <div class="field__input-wrapper">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_last_name">
+                                Last name
+                              </label>
+                              <input
+                                placeholder="Last name"
+                                autocomplete="shipping family-name"
+                                autocorrect="off"
+                                data-backup="last_name"
+                                class="field__input"
+                                aria-required="true"
+                                size="30"
+                                type="text"
+                                name="checkout[shipping_address][last_name]"
+                                id="checkout_shipping_address_last_name"
+                              />
+                            </div>
+                          </div>
+                          <div data-address-field="address1" data-autocomplete-field-container="true" class="field field--required">
+                            <div class="field__input-wrapper">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_address1">
+                                Address
+                              </label>
+                              <input
+                                placeholder="Address"
+                                autocomplete="shipping street-address"
+                                autocorrect="off"
+                                role="combobox"
+                                aria-autocomplete="list"
+                                aria-expanded="false"
+                                aria-required="true"
+                                data-backup="address1"
+                                data-autocomplete-trigger="true"
+                                data-autocomplete-title="Suggestions"
+                                data-autocomplete-single-item="1 item available"
+                                data-autocomplete-multi-item=" items available"
+                                data-autocomplete-item-selection=" of "
+                                data-autocomplete-close="Close suggestions"
+                                class="field__input"
+                                size="30"
+                                type="text"
+                                name="checkout[shipping_address][address1]"
+                                id="checkout_shipping_address_address1"
+                                aria-haspopup="false"
+                              />
+                              <p class="field__additional-info visually-hidden" data-address-civic-number-warning="">
+                                <svg class="icon-svg icon-svg--size-16 field__message__icon" aria-hidden="true" focusable="false">
+                                  <use xlink:href="#info"></use>
+                                </svg>
+                                Add a house number if you have one
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="field field--required field--half field--show-floating-label" data-address-field="country" data-autocomplete-field-container="true">
+                            <div class="field__input-wrapper field__input-wrapper--select">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_country">
+                                Country/Region
+                              </label>
+                              <select
+                                size="1"
+                                autocomplete="shipping country"
+                                data-backup="country"
+                                class="field__input field__input--select"
+                                aria-required="true"
+                                name="checkout[shipping_address][country]"
+                                id="checkout_shipping_address_country"
+                                placeholder="Country/Region"
+                              >
+                                <option value="usa">United state</option>
+                                <option value="albania">Albania</option>
+                                <option value="andorra">Andorra</option>
+                                <option value="armenia">Armenia</option>
+                                <option value="austria">Austria</option>
+                                <option value="azerbaijan">Azerbaijan</option>
+                                <option value="belarus">Belarus</option>
+                                <option value="belgium">Belgium</option>
+                                <option value="bosnia-and-herzegovina">Bosnia and Herzegovina</option>
+                                <option value="bulgaria">Bulgaria</option>
+                                <option value="croatia">Croatia</option>
+                                <option value="cyprus">Cyprus</option>
+                                <option value="czechia">Czechia (Czech Republic)</option>
+                                <option value="denmark">Denmark</option>
+                                <option value="estonia">Estonia</option>
+                                <option value="finland">Finland</option>
+                                <option value="france">France</option>
+                                <option value="georgia">Georgia</option>
+                                <option value="germany">Germany</option>
+                                <option value="greece">Greece</option>
+                                <option value="hungary">Hungary</option>
+                                <option value="iceland">Iceland</option>
+                                <option value="ireland">Ireland</option>
+                                <option value="italy">Italy</option>
+                                <option value="kazakhstan">Kazakhstan</option>
+                                <option value="kosovo">Kosovo</option>
+                                <option value="latvia">Latvia</option>
+                                <option value="liechtenstein">Liechtenstein</option>
+                                <option value="lithuania">Lithuania</option>
+                                <option value="luxembourg">Luxembourg</option>
+                                <option value="malta">Malta</option>
+                                <option value="moldova">Moldova</option>
+                                <option value="monaco">Monaco</option>
+                                <option value="montenegro">Montenegro</option>
+                                <option value="netherlands">Netherlands</option>
+                                <option value="north-macedonia">North Macedonia</option>
+                                <option value="norway">Norway</option>
+                                <option value="poland">Poland</option>
+                                <option value="portugal">Portugal</option>
+                                <option value="romania">Romania</option>
+                                <option value="san-marino">San Marino</option>
+                                <option value="serbia">Serbia</option>
+                                <option value="slovakia">Slovakia</option>
+                                <option value="slovenia">Slovenia</option>
+                                <option value="spain">Spain</option>
+                                <option value="sweden">Sweden</option>
+                                <option value="switzerland">Switzerland</option>
+                                <option value="turkey">Turkey</option>
+                                <option value="ukraine">Ukraine</option>
+                                <option value="united-kingdom">United Kingdom</option>
+                                <option value="vatican-city">Vatican City</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div data-address-field="city" data-autocomplete-field-container="true" class="field field--required">
+                            <div class="stateContainer">
+                              <div class="field field--required stateFlex">
+                                <div class="field__input-wrapper">
+                                  <label class="field__label" for="checkout_shipping_address_city">
+                                    City
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="checkout[shipping_address][city]"
+                                    id="checkout_shipping_address_city"
+                                    class="field__input"
+                                    placeholder="City"
+                                    required=""
+                                  />
+                                </div>
+                              </div>
+                              <div class="field field--required stateFlex">
+                                <div class="field__input-wrapper">
+                                  <label class="field__label" for="checkout_shipping_address_city">
+                                    Zip Code
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="checkout[shipping_address][Zip]"
+                                    id="checkout_shipping_address_city"
+                                    class="field__input"
+                                    placeholder="Zip Code"
+                                    required=""
+                                  />
+                                </div>
+                              </div>
+                              <div class="field field--required stateFlex">
+                                <div class="field__input-wrapper">
+                                  <label class="field__label" for="checkout_shipping_address_city">
+                                    State
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="checkout[shipping_address][Zip]"
+                                    id="checkout_shipping_address_city"
+                                    class="field__input"
+                                    placeholder="State"
+                                    required=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="field--third field field--required hidden" data-address-field="province" data-autocomplete-field-container="true">
+                            <div class="field__input-wrapper field__input-wrapper--select">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_province">
+                                Region
+                              </label>
+                              <input
+                                placeholder="Region"
+                                autocomplete="shipping address-level1"
+                                autocorrect="off"
+                                data-backup="province"
+                                class="field__input"
+                                aria-required="true"
+                                type="text"
+                                name="checkout[shipping_address][province]"
+                                id="checkout_shipping_address_province"
+                                disabled
+                                hidden="hidden"
+                              />
+                              <div class="field__caret shown-if-js">
+                                <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" role="presentation" aria-hidden="true" focusable="false">
+                                  <use xlink:href="#caret-down"></use>
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="field field--required field--half" data-address-field="zip" data-autocomplete-field-container="true">
+                            <div class="field__input-wrapper">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_zip">
+                                Postal code
+                              </label>
+                              <input
+                                placeholder="Postal code"
+                                autocomplete="shipping postal-code"
+                                autocorrect="off"
+                                data-backup="zip"
+                                data-autocomplete-trigger="true"
+                                data-autocomplete-title="Suggestions"
+                                data-autocomplete-single-item="1 item available"
+                                data-autocomplete-multi-item=" items available"
+                                data-autocomplete-item-selection=" of "
+                                data-autocomplete-close="Close suggestions"
+                                class="field__input field__input--zip"
+                                aria-required="true"
+                                size="30"
+                                type="text"
+                                name="checkout[shipping_address][zip]"
+                                id="checkout_shipping_address_zip"
+                              />
+                            </div>
+                            <div class="space-top"></div>
+                            <label class="shipping-title" for="checkout_shipping_address_country">
+                              Shipping method
+                            </label>
+                            <div class="shipping-method-container">
+                              <div class="payment-method">
+                                <label class="field__label field__label--visible" for="checkout_shipping_address_country">
+                                  1-2 business days
+                                </label>
+                              </div>
+                              <label class="free-title" for="checkout_shipping_address_country">
+                                FREE
+                              </label>
+                            </div>
+                          </div>
+                          <div class="payment-section">
+                            <div class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap">
+                              <h2 class="section__title" id="main-header" tabindex="-1">
+                                Payment
+                              </h2>
+                            </div>
+                            <label class="field__label field__label--visible" for="checkout_shipping_address_country">
+                              All transactions are secure and encrypted.
+                            </label>
+                            <div class="payment-method-container">
+                              <div class="payment-method">
+                                <label class="radio-container">
+                                  <input type="radio" name="payment" class="radio-input" checked />
+                                </label>
+                                <label class="field__label field__label--visible" for="checkout_shipping_address_country">
+                                  Credit card
+                                </label>
+                                <div class="payment-cards">
+                                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/visa.sxIq5Dot.svg" alt="Visa" class="card-logo" />
+                                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg" alt="Mastercard" class="card-logo" />
+                                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/amex.Csr7hRoy.svg" alt="American Express" class="card-logo" />
+                                  <span class="more-options">
+                                    +4
+                                    <div class="tooltip">
+                                      <div class="tooltip-card">
+                                        <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/discover.C7UbFpNb.svg" alt="Discover" />
+                                      </div>
+                                      <div class="tooltip-card">
+                                        <img src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/diners.png" alt="Diners Club" />
+                                      </div>
+                                      <div class="tooltip-card">
+                                        <img src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/elo.png" alt="Elo" />
+                                      </div>
+                                      <div class="tooltip-card">
+                                        <img src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/jcb.png" alt="JCB" />
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="space-top"></div>
+                          <div data-address-field="phone" class="field field--required">
+                            <div class="field__input-wrapper field__input-wrapper--icon-right">
+                              <label class="field__label field__label--visible" for="checkout_shipping_address_phone">
+                                Phone
+                              </label>
+                              <input
+                                placeholder="Phone"
+                                autocomplete="shipping tel"
+                                autocorrect="off"
+                                data-backup="phone"
+                                data-phone-formatter="true"
+                                data-phone-formatter-country-select="[name='checkout[shipping_address][country]']"
+                                class="field__input field__input--numeric"
+                                aria-required="true"
+                                size="30"
+                                type="tel"
+                                name="checkout[shipping_address][phone]"
+                                id="checkout_shipping_address_phone"
+                              />
+                              <div class="field__icon">
+                                <div data-tooltip="true" id="phone_tooltip" class="tooltip-container">
+                                  <button
+                                    type="button"
+                                    class="tooltip-control"
+                                    data-tooltip-control="true"
+                                    aria-label="More information"
+                                    aria-describedby="tooltip-for-phone"
+                                    aria-controls="tooltip-for-phone"
+                                    aria-pressed="false"
+                                    placeholder="Phone"
+                                  >
+                                    <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-16 icon-svg--block icon-svg--center" role="presentation" aria-hidden="true" focusable="false">
+                                      <use xlink:href="#question"></use>
+                                    </svg>
+                                  </button>
+                                  <span class="tooltip" role="tooltip" id="tooltip-for-phone">
+                                    In case we need to contact you about your order
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="field">
+                          <div class="checkbox-wrapper">
+                            <div class="checkbox__input">
+                              <input size="30" type="hidden" name="checkout[remember_me]" />
+                              <input name="checkout[remember_me]" type="hidden" value="0" />
+                              <input class="input-checkbox" data-backup="remember_me" type="checkbox" value="1" name="checkout[remember_me]" id="checkout_remember_me" />
+                            </div>
+                            <label class="checkbox__label" for="checkout_remember_me">
+                              Save this information for next time
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  id="continue_button"
+                  class="payment-button"
+                  aria-busy="false"
+                  href="https://pay.sumup.com/b2c/QYJMPVRG"
+                >
+                  Proceed to Payment
+                </a>
+
+                <input type="hidden" name="checkout[client_details][browser_width]" value="1519" />
+                <input type="hidden" name="checkout[client_details][browser_height]" value="420" />
+                <input type="hidden" name="checkout[client_details][javascript_enabled]" value="1" />
+                <input type="hidden" name="checkout[client_details][color_depth]" value="24" />
+                <input type="hidden" name="checkout[client_details][java_enabled]" value="false" />
+                <input type="hidden" name="checkout[client_details][browser_tz]" value="-300" />
+              </form>
+            </div>
+          </main>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            <h1 class="visually-hidden">Information</h1>
+          </div>
+          <div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
+            <div class="order-summary__section">
+              <div class="section__header">
+                <div class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap">
+                  <h2 class="section__title" id="main-header" tabindex="-1">
+                    Order summary
+                  </h2>
+                </div>
+              </div>
+              <div class="total-line total-line--subtotal">
+                <span class="total-line__name">Subtotal:</span>
+                <span class="total-line__price">
+                  <span class="order-summary__emphasis skeleton-while-loading" data-checkout-subtotal-price-target="49900">
+                    $99
+                  </span>
+                </span>
+              </div>
+              <div class="total-line total-line--subtotal">
+                <span class="total-line__name">Shipping:</span>
+                <span class="total-line__price">
+                  <span class="order-summary__emphasis skeleton-while-loading" data-checkout-subtotal-price-target="49900">
+                    FREE
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="order-summary__section">
+              <div class="total-line total-line--subtotal">
+                <span class="total-line__name">Totale:</span>
+                <span class="total-line__price">
+                  <span class="order-summary__emphasis skeleton-while-loading" data-checkout-subtotal-price-target="49900">
+                    $99 USD
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <script>
+      const container = document.getElementById("gpay");
+      const button = googlePayClient.createButton({
+        buttonColor: "default",
+        buttonType: "buy",
+        buttonRadius: 0,
+        onClick: () => {},
+        allowedPaymentMethods: [],
+      });
+      container.appendChild(button);
+      const countrySelect = document.getElementById("checkout_shipping_address_country");
+      const stateSelect = document.getElementById("checkout_shipping_address_state");
+      const stateLabel = stateSelect.previousElementSibling;
+      countrySelect.addEventListener("change", () => {
+        if (countrySelect.value === "usa") {
+          stateSelect.classList.remove("hidden");
+          stateLabel.classList.remove("hidden");
+        } else {
+          stateSelect.classList.add("hidden");
+          stateLabel.classList.add("hidden");
+          stateSelect.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>

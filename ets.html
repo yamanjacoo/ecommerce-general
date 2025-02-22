@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <style>
+    /* Minimal base styles */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2em;
+      margin: 0;
+    }
+    .payment-buttons {
+      margin-bottom: 20px;
+    }
+    .payment-buttons a {
+      display: inline-block;
+      margin-right: 10px;
+      text-decoration: none;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input[type="email"] {
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+    button {
+      padding: 10px;
+      font-size: 1em;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Contact Information</h1>
+    </header>
+    
+    <section class="payment-buttons">
+      <a href="https://pay.sumup.com/b2c/QYJMPVRG">
+        <img src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fapay.svg?alt=media&token=2a26f752-8816-437b-bd8c-c5b27ac8c712" alt="Apple Pay" width="60" height="60">
+      </a>
+      <a href="https://pay.sumup.com/b2c/QYJMPVRG">
+        <img src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fgpay.svg?alt=media&token=74dfed25-c9a8-4954-9e40-0bbebe876273" alt="Google Pay" width="60" height="60">
+      </a>
+    </section>
+    
+    <main>
+      <form method="post" action="#">
+        <label for="checkout_email">Email</label>
+        <input type="email" id="checkout_email" name="checkout[email]" placeholder="Email" required>
+        
+        <label>
+          <input type="checkbox" name="checkout[buyer_accepts_marketing]" checked>
+          Keep me up to date on news and offers
+        </label>
+        
+        <button type="submit">Continue</button>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

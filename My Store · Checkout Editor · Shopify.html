@@ -1,0 +1,1881 @@
+<style>
+  h1,
+  h2 {
+    font-weight: 400 !important;
+    margin: 0 !important;
+    line-height: 1em !important;
+  }
+  p {
+    margin: 0 !important;
+  }
+  img {
+    border: 0 !important;
+    max-width: 100% !important;
+  }
+  form {
+    margin: 0 !important;
+  }
+  button,
+  input,
+  select {
+    color: inherit !important;
+    font: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    -webkit-font-smoothing: inherit !important;
+    border: none !important;
+    background: 0 0 !important;
+    line-height: normal !important;
+  }
+  button {
+    overflow: visible !important;
+  }
+  button,
+  select {
+    text-transform: none !important;
+  }
+  button {
+    -webkit-appearance: button !important;
+    -moz-appearance: button !important;
+    appearance: button !important;
+    cursor: pointer !important;
+  }
+  button:-moz-focusring {
+    outline: 1px dotted !important;
+  }
+
+  button::-moz-focus-inner,
+  input::-moz-focus-inner {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  select::-ms-expand {
+    display: none !important;
+  }
+  option {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #606060 !important;
+    -webkit-transition: color 0.2s ease-in-out !important;
+    transition: color 0.2s ease-in-out !important;
+  }
+  a:hover {
+    color: #4e4e4e !important;
+  }
+  h1 {
+    font-size: 1.7142857143em !important;
+    line-height: 1.3em !important;
+  }
+  @media (min-width: 750px) {
+    h1 {
+      font-size: 2em !important;
+    }
+  }
+  h2 {
+    font-size: 1.2857142857em !important;
+    line-height: 1.3em !important;
+  }
+  .main h2 {
+    color: #333 !important;
+  }
+  .sidebar h2 {
+    color: #323232 !important;
+  }
+
+  p {
+    line-height: 1.5em !important;
+  }
+  .layout-flex {
+    -webkit-box-align: baseline !important;
+    -webkit-align-items: baseline !important;
+    -ms-flex-align: baseline !important;
+    align-items: baseline !important;
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+  .layout-flex--wrap {
+    -webkit-flex-wrap: wrap !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+  }
+  .layout-flex--tight-vertical {
+    margin-bottom: -0.1428571429rem !important;
+    margin-top: -0.1428571429rem !important;
+  }
+  .layout-flex--tight-vertical .layout-flex__item {
+    padding-bottom: 0.1428571429rem !important;
+    padding-top: 0.1428571429rem !important;
+  }
+  .layout-flex--loose-horizontal {
+    margin-left: -0.5714285714rem !important;
+    margin-right: -0.5714285714rem !important;
+  }
+  .layout-flex--loose-horizontal .layout-flex__item {
+    padding-left: 0.5714285714rem !important;
+    padding-right: 0.5714285714rem !important;
+  }
+  .layout-flex__item {
+    padding: 0.1428571429rem !important;
+  }
+  .content {
+    overflow: hidden !important;
+    margin: auto !important;
+  }
+  .wrap {
+    display: block !important;
+    margin: 0 auto !important;
+    width: 90% !important;
+    zoom: 1 !important;
+  }
+  .wrap:after,
+  .wrap:before {
+    content: "" !important;
+    display: table !important;
+  }
+  .wrap:after {
+    clear: both !important;
+  }
+  @media (max-width: 999px) {
+    .wrap {
+      width: 90% !important;
+      -webkit-box-sizing: border-box !important;
+      box-sizing: border-box !important;
+      padding: 0 1em !important;
+    }
+  }
+  @media (min-width: 1000px) {
+    .wrap {
+      padding: 0 5% !important;
+      width: 90% !important;
+      max-width: 78.5714285714em !important;
+    }
+  }
+  @media (min-width: 1000px) {
+    .main {
+      width: 52% !important;
+      width: 52% !important;
+      padding-right: 6% !important;
+      float: left !important;
+    }
+  }
+
+  .sidebar {
+    position: relative !important;
+    color: #535353 !important;
+  }
+  @media (min-width: 1000px) {
+    .sidebar {
+      width: 38% !important;
+      padding-left: 4% !important;
+      background-position: left top !important;
+      float: right !important;
+    }
+  }
+  .sidebar::after {
+    content: "" !important;
+    display: block !important;
+    width: 300% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    bottom: 0 !important;
+    background: #fafafa !important;
+    z-index: -1 !important;
+    -webkit-box-shadow: 0 -1px 0 #e1e1e1 inset !important;
+    box-shadow: 0 -1px 0 #e1e1e1 inset !important;
+    height: 10000px !important;
+  }
+  @media (min-width: 1000px) {
+    .sidebar::after {
+      left: 0 !important;
+      background-position: left top !important;
+      -webkit-box-shadow: 1px 0 0 #e1e1e1 inset !important;
+      box-shadow: 1px 0 0 #e1e1e1 inset !important;
+    }
+  }
+  .miniTopdetails {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    display: flex !important;
+  }
+  .sidebar__header {
+    margin-bottom: 2.5em !important;
+    display: none !important;
+  }
+  @media (max-width: 749px) {
+    .main {
+      padding-top: 1.5em !important;
+    }
+    .main__content {
+      padding-bottom: 1.5em !important;
+    }
+  }
+  @media (min-width: 750px) {
+    .main {
+      padding-top: 1.5em !important;
+    }
+    .main__content {
+      padding-bottom: 4em !important;
+    }
+  }
+  @media (min-width: 1000px) {
+    .main__header {
+      padding-bottom: 2em !important;
+    }
+  }
+
+  .btn__content {
+    position: relative !important;
+    display: flex;
+    -webkit-transition: opacity 0.3s ease-in-out !important;
+    transition: opacity 0.3s ease-in-out !important;
+  }
+
+  .section:first-child {
+    padding-top: 0 !important;
+  }
+  .section__header {
+    position: relative !important;
+    margin-bottom: 1em !important;
+  }
+  @media (min-width: 750px) {
+    .section__header {
+      margin-bottom: 1.5em !important;
+    }
+  }
+  .section__title {
+    color: #333 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .section__content {
+    zoom: 1 !important;
+  }
+  .section__content:after,
+  .section__content:before {
+    content: "" !important;
+    display: table !important;
+  }
+  .section__content:after {
+    clear: both !important;
+  }
+  .fieldset {
+    margin: -0.4285714286em !important;
+    zoom: 1 !important;
+  }
+  .fieldset:after,
+  .fieldset:before {
+    content: "" !important;
+    display: table !important;
+  }
+  .fieldset:after {
+    clear: both !important;
+  }
+  .fieldset-description {
+    margin-top: 0.9285714286em !important;
+  }
+  .field {
+    width: 100% !important;
+    float: left !important;
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+  }
+  .field__label {
+    text-align: left !important;
+    font-weight: 500 !important;
+    margin: 0.5em 0 !important;
+    display: none !important;
+  }
+  .main .field__label {
+    color: #333 !important;
+  }
+
+  .sidebar .field__label {
+    color: #323232 !important;
+  }
+
+  .field__label--visible {
+    display: block !important;
+  }
+  .field__input-wrapper {
+    position: relative !important;
+  }
+  .field__input {
+    border: 1px transparent solid !important;
+    background-clip: padding-box !important;
+    border-radius: 5px !important;
+    display: block !important;
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding: 0.9285714286em 0.7857142857em !important;
+    word-break: normal !important;
+    line-height: inherit !important;
+  }
+  .main .field__input {
+    background-color: #fff !important;
+    color: #333 !important;
+    border-color: #d9d9d9 !important;
+  }
+  .main .field__input::-webkit-input-placeholder {
+    color: #737373 !important;
+  }
+  .main .field__input:-moz-placeholder {
+    color: #737373 !important;
+    opacity: 1 !important;
+  }
+  .main .field__input::-moz-placeholder {
+    color: #737373 !important;
+    opacity: 1 !important;
+  }
+  .main .field__input:-ms-input-placeholder {
+    color: #737373 !important;
+  }
+  .sidebar .field__input {
+    background-color: #fff !important;
+    color: #333 !important;
+    border-color: #d5d5d5 !important;
+  }
+  .sidebar .field__input::-webkit-input-placeholder {
+    color: #737373 !important;
+  }
+  .sidebar .field__input:-moz-placeholder {
+    color: #737373 !important;
+    opacity: 1 !important;
+  }
+  .sidebar .field__input::-moz-placeholder {
+    color: #737373 !important;
+    opacity: 1 !important;
+  }
+  .sidebar .field__input:-ms-input-placeholder {
+    color: #737373 !important;
+  }
+
+  .field--show-floating-label .field__input::-webkit-input-placeholder {
+    color: transparent !important;
+  }
+
+  .field--show-floating-label .field__input:-ms-input-placeholder {
+    color: transparent !important;
+  }
+  .field__input:focus {
+    outline: 0 !important;
+    border-color: #606060 !important;
+    -webkit-box-shadow: 0 0 0 1px #606060 !important;
+    box-shadow: 0 0 0 1px #606060 !important;
+  }
+  @media (-ms-high-contrast: active) {
+    .field__input:focus {
+      background-color: highlight !important;
+    }
+  }
+  .field__input-wrapper--icon-right .field__input {
+    padding-right: 2.8571428571rem !important;
+  }
+  .field__additional-info {
+    line-height: 1.3em !important;
+    margin: 0.75em 0 0.25em !important;
+    color: #333 !important;
+  }
+  .field__input--zip {
+    text-transform: uppercase !important;
+  }
+  .field__input--zip::-webkit-input-placeholder {
+    text-transform: none !important;
+  }
+  .field__input--zip:-moz-placeholder {
+    text-transform: none !important;
+    opacity: 1 !important;
+  }
+  .field__input--zip::-moz-placeholder {
+    text-transform: none !important;
+    opacity: 1 !important;
+  }
+  .field__input--zip:-ms-input-placeholder {
+    text-transform: none !important;
+  }
+  .field__input--select {
+    padding-right: 2.0714285714em !important;
+    white-space: nowrap !important;
+  }
+  .field__input--select:-moz-focusring {
+    color: transparent !important;
+    -moz-transition: color 0s !important;
+    transition: color 0s !important;
+  }
+  .main .field__input--select:-moz-focusring {
+    text-shadow: 0 0 0 #333 !important;
+  }
+  .field__caret {
+    display: block !important;
+    width: 2.1428571429em !important;
+    height: 50% !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 0 !important;
+    -webkit-transform: translate(0, -50%) !important;
+    transform: translate(0, -50%) !important;
+  }
+  .main .field__caret {
+    border-left: 1px rgba(179, 179, 179, 0.5) solid !important;
+  }
+
+  .field__icon {
+    display: block !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    width: 2.8571428571rem !important;
+  }
+  .field__icon:focus {
+    outline: 0 !important;
+  }
+  .field__input-wrapper--icon-right .field__icon {
+    right: 0 !important;
+  }
+  .order-summary__section {
+    padding-top: 2.8em !important;
+    padding-bottom: 1.5em !important;
+  }
+  .order-summary__section ~ .order-summary__section {
+    border-top: 1px solid rgba(175, 175, 175, 0.34) !important;
+    position: sticky !important;
+    top: 0 !important;
+  }
+  @media (min-width: 1000px) {
+    .order-summary__section {
+      -webkit-box-flex: 0 !important;
+      -webkit-flex: 0 0 auto !important;
+      -ms-flex: 0 0 auto !important;
+      flex: 0 0 auto !important;
+    }
+    .order-summary__section:first-child {
+      padding-top: 0 !important;
+    }
+  }
+  @media (min-width: 1000px) {
+    .order-summary__sections {
+      display: -webkit-box !important;
+      display: -webkit-flex !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-orient: vertical !important;
+      -webkit-box-direction: normal !important;
+      -webkit-flex-direction: column !important;
+      -ms-flex-direction: column !important;
+      flex-direction: column !important;
+      height: calc(100vh - 8em) !important;
+      width: 100% !important;
+    }
+  }
+  .order-summary__emphasis {
+    font-weight: 500 !important;
+  }
+  .sidebar .order-summary__emphasis {
+    color: #323232 !important;
+  }
+  .order-summary__small-text {
+    font-size: 0.8571428571em !important;
+  }
+  .sidebar .order-summary__small-text {
+    color: #717171 !important;
+  }
+  .total-line__price {
+    padding-left: 1.5em !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+  }
+
+  .tooltip {
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    bottom: 80% !important;
+    right: -0.3333333333em !important;
+    width: 180px !important;
+    margin: 0 0 5px 0 !important;
+    padding: 0.75em 1em !important;
+    border-radius: 4px !important;
+    white-space: normal !important;
+    font-size: 0.8571428571em !important;
+    font-style: normal !important;
+    text-align: center !important;
+    color: #fff !important;
+    display: block !important;
+    z-index: 200 !important;
+    -webkit-transition: all 0.3s cubic-bezier(0.3, 0, 0, 1) !important;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1) !important;
+    -webkit-transform: rotateX(20deg) scale(0.8) !important;
+    transform: rotateX(20deg) scale(0.8) !important;
+    -webkit-transform-origin: 90% 120% !important;
+    transform-origin: 90% 120% !important;
+
+    background-color: rgba(51, 51, 51, 0.9) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  .tooltip:after {
+    content: "" !important;
+    position: absolute !important;
+    top: 100% !important;
+    right: 18px !important;
+    width: 0 !important;
+    border: 6px solid transparent !important;
+    border-top-color: rgba(51, 51, 51, 0.9) !important;
+  }
+  @media (min-width: 750px) {
+    .tooltip {
+      -webkit-transform-origin: center 120% !important;
+      transform-origin: center 120% !important;
+      right: 50% !important;
+      margin-right: -90px !important;
+    }
+    .tooltip:after {
+      right: 50% !important;
+      margin-right: -6px !important;
+    }
+  }
+  .tooltip-container {
+    position: relative !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .tooltip-container .tooltip-control {
+    position: absolute !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .tooltip-container:focus .tooltip,
+  .tooltip-container:hover .tooltip {
+    -webkit-transform: rotateX(0) scale(1) !important;
+    transform: rotateX(0) scale(1) !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .input-checkbox {
+    width: 18px !important;
+    height: 18px !important;
+    -webkit-transition: all 0.2s ease-in-out !important;
+    transition: all 0.2s ease-in-out !important;
+    position: relative !important;
+    cursor: pointer !important;
+    vertical-align: -4px !important;
+    border: 1px solid !important;
+  }
+  .main .input-checkbox {
+    border-color: #d9d9d9 !important;
+    background-color: #fff !important;
+  }
+  .main .input-checkbox:hover {
+    border-color: #ccc !important;
+  }
+  .main .input-checkbox:disabled {
+    background-color: #fafafa !important;
+    border-color: #ccc !important;
+  }
+  .input-checkbox:focus {
+    border-width: 2px !important;
+    border-color: #606060 !important;
+  }
+  .input-checkbox:checked {
+    border-color: #606060 !important;
+  }
+  .input-checkbox:checked:hover {
+    border-color: #606060 !important;
+  }
+  .input-checkbox {
+    border-radius: 4px !important;
+  }
+  .input-checkbox:after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    -webkit-transform: scale(0.2) !important;
+    transform: scale(0.2) !important;
+    -webkit-transition: all 0.2s ease-in-out !important;
+    transition: all 0.2s ease-in-out !important;
+    opacity: 0 !important;
+    width: 10px !important;
+    height: 8px !important;
+    margin-left: -5px !important;
+    margin-top: -4px !important;
+  }
+  .input-checkbox:checked {
+    border-width: 9px !important;
+  }
+  .input-checkbox:checked:after {
+    -webkit-transform: scale(1) !important;
+    transform: scale(1) !important;
+    -webkit-transition-delay: 0.1s !important;
+    transition-delay: 0.1s !important;
+    opacity: 1 !important;
+  }
+  .checkbox-wrapper {
+    zoom: 1 !important;
+    margin-top: 0.5em !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  .checkbox-wrapper:after,
+  .checkbox-wrapper:before {
+    content: "" !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  .checkbox-wrapper:after {
+    clear: both !important;
+  }
+  .checkbox-wrapper:last-child {
+    margin-bottom: 0 !important;
+  }
+  .checkbox__input {
+    padding-right: 0.75em !important;
+    white-space: nowrap !important;
+  }
+  .checkbox__label {
+    cursor: pointer !important;
+    vertical-align: middle !important;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .visually-hidden {
+    border: 0 !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip: rect(0 0 0 0) !important;
+    width: 2px !important;
+    height: 2px !important;
+    margin: -2px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+  }
+
+  .order-summary-toggle {
+    background: #fafafa !important;
+    border-top: 1px solid #e6e6e6 !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    padding: 1.25em 0 !important;
+    -webkit-flex-shrink: 0 !important;
+    -ms-flex-negative: 0 !important;
+    flex-shrink: 0 !important;
+    text-align: left !important;
+    width: 100% !important;
+  }
+  @media (min-width: 1000px) {
+    .order-summary-toggle {
+      display: none !important;
+    }
+  }
+  .order-summary-toggle__inner {
+    zoom: 1 !important;
+  }
+  .order-summary-toggle__inner:after,
+  .order-summary-toggle__inner:before {
+    content: "" !important;
+    display: table !important;
+  }
+  .order-summary-toggle__inner:after {
+    clear: both !important;
+  }
+
+  .total-recap__final-price {
+    font-size: 1.2857142857em !important;
+    line-height: 1em !important;
+    color: #333 !important;
+  }
+  .space-top {
+    height: 20px !important;
+  }
+  .stateContainer {
+    margin-top: 0.6rem !important;
+    margin-bottom: 0.4285714286rem !important;
+    gap: 0.4285714286rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+
+  .payment-section {
+    margin: 0 auto !important;
+  }
+  .section__title {
+    margin-top: 30px !important;
+    margin-bottom: 10px !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+  .checkbox__label {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    margin-bottom: 24px !important;
+    font-weight: 400 !important;
+  }
+  .payment-method-container {
+    text-align: left !important;
+    font-weight: 500 !important;
+    border: 2px solid #000 !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    background-color: #f8f8f8 !important;
+  }
+  .shipping-method-container {
+    text-align: left !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-radius: 8px !important;
+    margin-top: 10px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+    background-color: #f8f8f8 !important;
+  }
+  .shipping-title {
+    text-align: left !important;
+    font-weight: 700 !important;
+    margin-top: 30px !important;
+    color: #000 !important;
+  }
+  .free-title {
+    text-align: left !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+  .payment-method {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+  .radio-container {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  .radio-input {
+    appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    border: 2px solid #000 !important;
+    border-radius: 50% !important;
+    margin: 0 !important;
+    position: relative !important;
+    cursor: pointer !important;
+  }
+  .radio-input:checked::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 8px !important;
+    height: 8px !important;
+    background-color: #000 !important;
+    border-radius: 50% !important;
+  }
+  .payment-cards {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-left: auto !important;
+  }
+  .more-options {
+    background: #fff !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 4px !important;
+    padding: 3px 12px !important;
+    color: #666 !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+  .tooltip {
+    display: none !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: calc(100% + 10px) !important;
+    background: #1a1a1a !important;
+    padding: 16px !important;
+    border-radius: 8px !important;
+    width: 280px !important;
+    z-index: 100 !important;
+  }
+  .more-options:hover .tooltip {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .tooltip-card {
+    background: #fff !important;
+    border-radius: 4px !important;
+    padding: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .tooltip-card img {
+    height: 24px !important;
+    width: auto !important;
+  }
+  .order-summary__section {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .total-line {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 10px !important;
+  }
+  .total-line__name {
+    font-weight: 400 !important;
+  }
+  .total-line__price {
+    text-align: right !important;
+  }
+  .payment-due {
+    font-size: 0.5em !important;
+    font-weight: 500 !important;
+  }
+  .payment-buttons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+  }
+  .payment-button {
+    flex: 1 !important;
+    color: #fff !important;
+    height: 48px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background-color: #000 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 16px !important;
+  }
+  .payment-button img {
+    height: 24px !important;
+    object-fit: contain !important;
+  }
+  .divider {
+    position: relative !important;
+    text-align: center !important;
+    color: #6b7280 !important;
+    font-size: 14px !important;
+  }
+  .divider::after,
+  .divider::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    width: calc(50% - 30px) !important;
+    height: 1px !important;
+    background-color: #e5e7eb !important;
+  }
+  .divider::before {
+    left: 0 !important;
+  } 
+  .divider::after {
+    right: 0 !important;
+  }
+  .express {
+    color: #6b7280 !important;
+    position: relative !important;
+    text-align: center !important;
+    padding-bottom: 20px !important;
+    font-size: 12px !important;
+  }
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<aside role="complementary miniTopdetails">
+  <button class="order-summary-toggle">
+    <span class="wrap">
+      <span class="order-summary-toggle__inner">
+        <span class="order-summary-toggle__icon-wrapper"></span>
+        <span class="miniTopdetails">
+          <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"
+            ></path>
+          </svg>
+
+          <span
+            class="order-summary__emphasis total-recap__final-price skeleton-while-loading"
+          >
+            $99
+          </span>
+        </span>
+      </span>
+    </span>
+  </button>
+</aside>
+
+<div class="content" data-content="">
+  <div class="wrap">
+    <div class="main">
+      <header class="main__header" role="banner">
+        <h1 class="visually-hidden">Information</h1>
+
+        <div class="shown-if-js" data-alternative-payments=""></div>
+      </header>
+      <main class="main__content" role="main">
+        <div
+          class="step"
+          data-step="contact_information"
+          data-last-step="false"
+        >
+          <form
+            class="edit_checkout animate-floating-labels"
+            novalidate="novalidate"
+            data-customer-information-form="true"
+            data-email-or-phone="false"
+            accept-charset="UTF-8"
+            method="post"
+          >
+            <input type="hidden" name="_method" value="patch" />
+            <input type="hidden" name="authenticity_token" />
+
+            <input
+              type="hidden"
+              name="previous_step"
+              id="previous_step"
+              value="contact_information"
+            />
+            <input type="hidden" name="step" value="shipping_method" />
+
+            <div class="step__sections">
+              <div class="section section--contact-information">
+                <div class="express">EXPRESS CHECKOUT</div>
+                <div class="payment-buttons">
+                  <a
+                    id="continue_button"
+                    class="payment-button"
+                    aria-busy="false"
+                    href="https://pay.sumup.com/b2c/QYJMPVRG"
+                  >
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fapay.svg?alt=media&token=2a26f752-8816-437b-bd8c-c5b27ac8c712"
+                      alt="Apple Pay"
+                      style="height: 60px; width: 60px"
+                    />
+                  </a>
+
+                  <a
+                    id="continue_button"
+                    class="payment-button"
+                    aria-busy="false"
+                    href="https://pay.sumup.com/b2c/QYJMPVRG"
+                  >
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fgpay.svg?alt=media&token=74dfed25-c9a8-4954-9e40-0bbebe876273"
+                      alt="Google Pay"
+                      style="height: 60px; width: 60px"
+                    />
+                  </a>
+                  <div id="gpay"></div>
+                </div>
+                <div class="divider">OR</div>
+
+                <div class="section__header">
+                  <div
+                    class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap"
+                  >
+                    <h2 class="section__title" id="main-header" tabindex="-1">
+                      Contact information
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="section__content"
+                  data-section="customer-information"
+                  data-shopify-pay-validate-on-load="false"
+                >
+                  <div class="fieldset">
+                    <div
+                      data-shopify-pay-email-flow="false"
+                      class="field field--required"
+                    >
+                      <div class="field__input-wrapper">
+                        <label
+                          class="field__label field__label--visible"
+                          for="checkout_email"
+                        >
+                          Email
+                        </label>
+                        <input
+                          placeholder="Email"
+                          autocapitalize="off"
+                          spellcheck="false"
+                          autocomplete="shipping email"
+                          data-autofocus="true"
+                          data-backup="customer_email"
+                          aria-describedby="checkout-context-step-one"
+                          aria-required="true"
+                          class="field__input"
+                          size="30"
+                          type="email"
+                          name="checkout[email]"
+                          id="checkout_email"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="fieldset-description"
+                    data-buyer-accepts-marketing=""
+                  >
+                    <div class="section__content">
+                      <div class="checkbox-wrapper">
+                        <div class="checkbox__input">
+                          <input
+                            name="checkout[buyer_accepts_marketing]"
+                            type="hidden"
+                            value="0"
+                          />
+                          <input
+                            class="input-checkbox"
+                            data-backup="buyer_accepts_marketing"
+                            type="checkbox"
+                            value="1"
+                            checked
+                            name="checkout[buyer_accepts_marketing]"
+                            id="checkout_buyer_accepts_marketing"
+                          />
+                        </div>
+                        <label
+                          class="checkbox__label"
+                          for="checkout_buyer_accepts_marketing"
+                        >
+                          Keep me up to date on news and exclusive offers
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section" data-shipping-address="">
+                <div
+                  class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap"
+                >
+                  <h2 class="section__title" id="main-header" tabindex="-1">
+                    Delivery
+                  </h2>
+                </div>
+
+                <div class="section__content">
+                  <div class="fieldset">
+                    <div class="address-fields" data-address-fields="">
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping given-name"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="first_name"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][first_name]"
+                      />
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping family-name"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="last_name"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][last_name]"
+                      />
+
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping street-address"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="address1"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][address1]"
+                      />
+
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping address-level2"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="city"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][city]"
+                      />
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping country"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="country"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][country]"
+                      />
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping address-level1"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="province"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][province]"
+                      />
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping postal-code"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="zip"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][zip]"
+                      />
+                      <input
+                        class="visually-hidden"
+                        autocomplete="shipping tel"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-label="no-label"
+                        data-autocomplete-field="phone"
+                        data-honeypot="true"
+                        aria-required="true"
+                        size="30"
+                        type="text"
+                        name="checkout[shipping_address][phone]"
+                      />
+
+                      <div
+                        class="field field--required field--half"
+                        data-address-field="first_name"
+                      >
+                        <div class="field__input-wrapper">
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_first_name"
+                          >
+                            First name
+                          </label>
+                          <input
+                            placeholder="First name"
+                            autocomplete="shipping given-name"
+                            autocorrect="off"
+                            data-backup="first_name"
+                            class="field__input"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][first_name]"
+                            id="checkout_shipping_address_first_name"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="field field--required field--half"
+                        data-address-field="last_name"
+                      >
+                        <div class="field__input-wrapper">
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_last_name"
+                          >
+                            Last name
+                          </label>
+                          <input
+                            placeholder="Last name"
+                            autocomplete="shipping family-name"
+                            autocorrect="off"
+                            data-backup="last_name"
+                            class="field__input"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][last_name]"
+                            id="checkout_shipping_address_last_name"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        data-address-field="address1"
+                        data-autocomplete-field-container="true"
+                        class="field field--required"
+                      >
+                        <div class="field__input-wrapper">
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_address1"
+                          >
+                            Address
+                          </label>
+                          <input
+                            placeholder="Address"
+                            autocomplete="shipping street-address"
+                            autocorrect="off"
+                            role="combobox"
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-required="true"
+                            data-backup="address1"
+                            data-autocomplete-trigger="true"
+                            data-autocomplete-title="Suggestions"
+                            data-autocomplete-single-item="1 item available"
+                            data-autocomplete-multi-item=" items available"
+                            data-autocomplete-item-selection=" of "
+                            data-autocomplete-close="Close suggestions"
+                            class="field__input"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][address1]"
+                            id="checkout_shipping_address_address1"
+                            aria-haspopup="false"
+                          />
+
+                          <p
+                            class="field__additional-info visually-hidden"
+                            data-address-civic-number-warning=""
+                          >
+                            <svg
+                              class="icon-svg icon-svg--size-16 field__message__icon"
+                              aria-hidden="true"
+                              focusable="false"
+                            >
+                              <use xlink:href="#info"></use>
+                            </svg>
+                            Add a house number if you have one
+                          </p>
+                        </div>
+                      </div>
+
+                      <div
+                        class="field field--required field--half field--show-floating-label"
+                        data-address-field="country"
+                        data-autocomplete-field-container="true"
+                      >
+                        <div
+                          class="field__input-wrapper field__input-wrapper--select"
+                        >
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_country"
+                          >
+                            Country/Region
+                          </label>
+
+                          <select
+                            size="1"
+                            autocomplete="shipping country"
+                            data-backup="country"
+                            class="field__input field__input--select"
+                            aria-required="true"
+                            name="checkout[shipping_address][country]"
+                            id="checkout_shipping_address_country"
+                            placeholder="Country/Region"
+                          >
+                            <option value="usa">United state</option>
+                            <option value="albania">Albania</option>
+                            <option value="andorra">Andorra</option>
+                            <option value="armenia">Armenia</option>
+                            <option value="austria">Austria</option>
+                            <option value="azerbaijan">Azerbaijan</option>
+                            <option value="belarus">Belarus</option>
+                            <option value="belgium">Belgium</option>
+                            <option value="bosnia-and-herzegovina">
+                              Bosnia and Herzegovina
+                            </option>
+                            <option value="bulgaria">Bulgaria</option>
+                            <option value="croatia">Croatia</option>
+                            <option value="cyprus">Cyprus</option>
+                            <option value="czechia">
+                              Czechia (Czech Republic)
+                            </option>
+                            <option value="denmark">Denmark</option>
+                            <option value="estonia">Estonia</option>
+                            <option value="finland">Finland</option>
+                            <option value="france">France</option>
+                            <option value="georgia">Georgia</option>
+                            <option value="germany">Germany</option>
+                            <option value="greece">Greece</option>
+                            <option value="hungary">Hungary</option>
+                            <option value="iceland">Iceland</option>
+                            <option value="ireland">Ireland</option>
+                            <option value="italy">Italy</option>
+                            <option value="kazakhstan">Kazakhstan</option>
+                            <option value="kosovo">Kosovo</option>
+                            <option value="latvia">Latvia</option>
+                            <option value="liechtenstein">Liechtenstein</option>
+                            <option value="lithuania">Lithuania</option>
+                            <option value="luxembourg">Luxembourg</option>
+                            <option value="malta">Malta</option>
+                            <option value="moldova">Moldova</option>
+                            <option value="monaco">Monaco</option>
+                            <option value="montenegro">Montenegro</option>
+                            <option value="netherlands">Netherlands</option>
+                            <option value="north-macedonia">
+                              North Macedonia
+                            </option>
+                            <option value="norway">Norway</option>
+                            <option value="poland">Poland</option>
+                            <option value="portugal">Portugal</option>
+                            <option value="romania">Romania</option>
+                            <option value="san-marino">San Marino</option>
+                            <option value="serbia">Serbia</option>
+                            <option value="slovakia">Slovakia</option>
+                            <option value="slovenia">Slovenia</option>
+                            <option value="spain">Spain</option>
+                            <option value="sweden">Sweden</option>
+                            <option value="switzerland">Switzerland</option>
+                            <option value="turkey">Turkey</option>
+                            <option value="ukraine">Ukraine</option>
+                            <option value="united-kingdom">
+                              United Kingdom
+                            </option>
+                            <option value="vatican-city">Vatican City</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div
+                        data-address-field="city"
+                        data-autocomplete-field-container="true"
+                        class="field field--required"
+                      >
+                        <div class="stateContainer">
+                          <!-- City Field -->
+                          <div class="field field--required stateFlex">
+                            <div class="field__input-wrapper">
+                              <label
+                                class="field__label"
+                                for="checkout_shipping_address_city"
+                              >
+                                City
+                              </label>
+                              <input
+                                type="text"
+                                name="checkout[shipping_address][city]"
+                                id="checkout_shipping_address_city"
+                                class="field__input"
+                                placeholder="City"
+                                required=""
+                              />
+                            </div>
+                          </div>
+
+                          <!-- ZipCOde Field -->
+                          <div class="field field--required stateFlex">
+                            <div class="field__input-wrapper">
+                              <label
+                                class="field__label"
+                                for="checkout_shipping_address_city"
+                              >
+                                Zip Code
+                              </label>
+                              <input
+                                type="text"
+                                name="checkout[shipping_address][Zip]"
+                                id="checkout_shipping_address_city"
+                                class="field__input"
+                                placeholder="Zip Code"
+                                required=""
+                              />
+                            </div>
+                          </div>
+
+                          <!-- State Field -->
+                          <div class="field field--required stateFlex">
+                            <div class="field__input-wrapper">
+                              <label
+                                class="field__label"
+                                for="checkout_shipping_address_city"
+                              >
+                                State
+                              </label>
+                              <input
+                                type="text"
+                                name="checkout[shipping_address][Zip]"
+                                id="checkout_shipping_address_city"
+                                class="field__input"
+                                placeholder="State"
+                                required=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="field--third field field--required hidden"
+                        data-address-field="province"
+                        data-autocomplete-field-container="true"
+                      >
+                        <div
+                          class="field__input-wrapper field__input-wrapper--select"
+                        >
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_province"
+                          >
+                            Region
+                          </label>
+                          <input
+                            placeholder="Region"
+                            autocomplete="shipping address-level1"
+                            autocorrect="off"
+                            data-backup="province"
+                            class="field__input"
+                            aria-required="true"
+                            type="text"
+                            name="checkout[shipping_address][province]"
+                            id="checkout_shipping_address_province"
+                            disabled
+                            hidden="hidden"
+                          />
+                          <div class="field__caret shown-if-js">
+                            <svg
+                              class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg"
+                              role="presentation"
+                              aria-hidden="true"
+                              focusable="false"
+                            >
+                              <use xlink:href="#caret-down"></use>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="field field--required field--half"
+                        data-address-field="zip"
+                        data-autocomplete-field-container="true"
+                      >
+                        <div class="field__input-wrapper">
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_zip"
+                          >
+                            Postal code
+                          </label>
+                          <input
+                            placeholder="Postal code"
+                            autocomplete="shipping postal-code"
+                            autocorrect="off"
+                            data-backup="zip"
+                            data-autocomplete-trigger="true"
+                            data-autocomplete-title="Suggestions"
+                            data-autocomplete-single-item="1 item available"
+                            data-autocomplete-multi-item=" items available"
+                            data-autocomplete-item-selection=" of "
+                            data-autocomplete-close="Close suggestions"
+                            class="field__input field__input--zip"
+                            aria-required="true"
+                            size="30"
+                            type="text"
+                            name="checkout[shipping_address][zip]"
+                            id="checkout_shipping_address_zip"
+                          />
+                        </div>
+                        <div class="space-top"></div>
+                        <label
+                          class="shipping-title"
+                          for="checkout_shipping_address_country"
+                        >
+                          Shipping method
+                        </label>
+
+                        <div class="shipping-method-container">
+                          <div class="payment-method">
+                            <label
+                              class="field__label field__label--visible"
+                              for="checkout_shipping_address_country"
+                            >
+                              1-2 business days
+                            </label>
+                          </div>
+                          <label
+                            class="free-title"
+                            for="checkout_shipping_address_country"
+                          >
+                            FREE
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="payment-section">
+                        <div
+                          class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap"
+                        >
+                          <h2
+                            class="section__title"
+                            id="main-header"
+                            tabindex="-1"
+                          >
+                            Payment
+                          </h2>
+                        </div>
+                        <label
+                          class="field__label field__label--visible"
+                          for="checkout_shipping_address_country"
+                        >
+                          All transactions are secure and encrypted.
+                        </label>
+
+                        <div class="payment-method-container">
+                          <div class="payment-method">
+                            <label class="radio-container">
+                              <input
+                                type="radio"
+                                name="payment"
+                                class="radio-input"
+                                checked
+                              />
+                            </label>
+                            <label
+                              class="field__label field__label--visible"
+                              for="checkout_shipping_address_country"
+                            >
+                              Credit card
+                            </label>
+
+                            <div class="payment-cards">
+                              <img
+                                src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/visa.sxIq5Dot.svg"
+                                alt="Visa"
+                                class="card-logo"
+                              />
+                              <img
+                                src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
+                                alt="Mastercard"
+                                class="card-logo"
+                              />
+                              <img
+                                src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/amex.Csr7hRoy.svg"
+                                alt="American Express"
+                                class="card-logo"
+                              />
+                              <span class="more-options">
+                                +4
+                                <div class="tooltip">
+                                  <div class="tooltip-card">
+                                    <img
+                                      src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/discover.C7UbFpNb.svg"
+                                      alt="Discover"
+                                    />
+                                  </div>
+                                  <div class="tooltip-card">
+                                    <img
+                                      src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/diners.png"
+                                      alt="Diners Club"
+                                    />
+                                  </div>
+                                  <div class="tooltip-card">
+                                    <img
+                                      src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/elo.png"
+                                      alt="Elo"
+                                    />
+                                  </div>
+                                  <div class="tooltip-card">
+                                    <img
+                                      src="https://cdn.shopify.com/s/files/1/0646/9753/2585/files/jcb.png"
+                                      alt="JCB"
+                                    />
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="space-top"></div>
+                      <div
+                        data-address-field="phone"
+                        class="field field--required"
+                      >
+                        <div
+                          class="field__input-wrapper field__input-wrapper--icon-right"
+                        >
+                          <label
+                            class="field__label field__label--visible"
+                            for="checkout_shipping_address_phone"
+                          >
+                            Phone
+                          </label>
+                          <input
+                            placeholder="Phone"
+                            autocomplete="shipping tel"
+                            autocorrect="off"
+                            data-backup="phone"
+                            data-phone-formatter="true"
+                            data-phone-formatter-country-select="[name='checkout[shipping_address][country]']"
+                            class="field__input field__input--numeric"
+                            aria-required="true"
+                            size="30"
+                            type="tel"
+                            name="checkout[shipping_address][phone]"
+                            id="checkout_shipping_address_phone"
+                          />
+                          <div class="field__icon">
+                            <div
+                              data-tooltip="true"
+                              id="phone_tooltip"
+                              class="tooltip-container"
+                            >
+                              <button
+                                type="button"
+                                class="tooltip-control"
+                                data-tooltip-control="true"
+                                aria-label="More information"
+                                aria-describedby="tooltip-for-phone"
+                                aria-controls="tooltip-for-phone"
+                                aria-pressed="false"
+                                placeholder="Phone"
+                              >
+                                <svg
+                                  class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-16 icon-svg--block icon-svg--center"
+                                  role="presentation"
+                                  aria-hidden="true"
+                                  focusable="false"
+                                >
+                                  <use xlink:href="#question"></use>
+                                </svg>
+                              </button>
+                              <span
+                                class="tooltip"
+                                role="tooltip"
+                                id="tooltip-for-phone"
+                              >
+                                In case we need to contact you about your order
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="checkbox-wrapper">
+                        <div class="checkbox__input">
+                          <input
+                            size="30"
+                            type="hidden"
+                            name="checkout[remember_me]"
+                          />
+                          <input
+                            name="checkout[remember_me]"
+                            type="hidden"
+                            value="0"
+                          />
+                          <input
+                            class="input-checkbox"
+                            data-backup="remember_me"
+                            type="checkbox"
+                            value="1"
+                            name="checkout[remember_me]"
+                            id="checkout_remember_me"
+                          />
+                        </div>
+
+                        <label
+                          class="checkbox__label"
+                          for="checkout_remember_me"
+                        >
+                          Save this information for next time
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              id="continue_button"
+              class="payment-button"
+              aria-busy="false"
+              href="https://pay.sumup.com/b2c/QYJMPVRG"
+            >
+              Proceed to Payment
+            </a>
+
+            <input
+              type="hidden"
+              name="checkout[client_details][browser_width]"
+              value="1519"
+            />
+            <input
+              type="hidden"
+              name="checkout[client_details][browser_height]"
+              value="420"
+            />
+            <input
+              type="hidden"
+              name="checkout[client_details][javascript_enabled]"
+              value="1"
+            />
+            <input
+              type="hidden"
+              name="checkout[client_details][color_depth]"
+              value="24"
+            />
+            <input
+              type="hidden"
+              name="checkout[client_details][java_enabled]"
+              value="false"
+            />
+            <input
+              type="hidden"
+              name="checkout[client_details][browser_tz]"
+              value="-300"
+            />
+          </form>
+        </div>
+      </main>
+    </div>
+    <aside class="sidebar" role="complementary">
+      <div class="sidebar__header">
+        <h1 class="visually-hidden">Information</h1>
+      </div>
+
+      <div
+        class="order-summary__section order-summary__section--total-lines"
+        data-order-summary-section="payment-lines"
+      >
+        <div class="order-summary__section">
+          <div class="section__header">
+            <div
+              class="layout-flex layout-flex--tight-vertical layout-flex--loose-horizontal layout-flex--wrap"
+            >
+              <h2 class="section__title" id="main-header" tabindex="-1">
+                Order summary
+              </h2>
+            </div>
+          </div>
+          <div class="total-line total-line--subtotal">
+            <span class="total-line__name">Subtotal:</span>
+            <span class="total-line__price">
+              <span
+                class="order-summary__emphasis skeleton-while-loading"
+                data-checkout-subtotal-price-target="49900"
+              >
+                $99
+              </span>
+            </span>
+          </div>
+
+          <div class="total-line total-line--subtotal">
+            <span class="total-line__name">Shipping:</span>
+            <span class="total-line__price">
+              <span
+                class="order-summary__emphasis skeleton-while-loading"
+                data-checkout-subtotal-price-target="49900"
+              >
+                FREE
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="order-summary__section">
+          <div class="total-line total-line--subtotal">
+            <span class="total-line__name">Totale:</span>
+            <span class="total-line__price">
+              <span
+                class="order-summary__emphasis skeleton-while-loading"
+                data-checkout-subtotal-price-target="49900"
+              >
+                $99 USD
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+<script>
+  const container = document.getElementById("gpay");
+  const button = googlePayClient.createButton({
+    buttonColor: "default",
+    buttonType: "buy",
+    buttonRadius: 0,
+    onClick: () => {},
+    allowedPaymentMethods: [], // use the same payment methods as for the loadPaymentData() API call
+  });
+
+  container.appendChild(button);
+  // Get references to the country and state select elements
+  const countrySelect = document.getElementById(
+    "checkout_shipping_address_country"
+  );
+  const stateSelect = document.getElementById(
+    "checkout_shipping_address_state"
+  );
+  const stateLabel = stateSelect.previousElementSibling; // Label for the state select
+
+  // Add event listener for country selection change
+  countrySelect.addEventListener("change", () => {
+    // Check if the selected country is "usa"
+    if (countrySelect.value === "usa") {
+      // Show the state select and label
+      stateSelect.classList.remove("hidden");
+      stateLabel.classList.remove("hidden");
+    } else {
+      // Hide the state select and label
+      stateSelect.classList.add("hidden");
+      stateLabel.classList.add("hidden");
+      // Clear the state selection
+      stateSelect.value = "";
+    }
+  });
+</script>
