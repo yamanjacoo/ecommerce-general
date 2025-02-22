@@ -5,6 +5,7 @@ export const CURRENCIES = {
       name: "Euro",
       locale: "fr-FR",
       decimal: 2,
+      country: "FR",
     },
     USD: {
       code: "USD",
@@ -12,12 +13,14 @@ export const CURRENCIES = {
       name: "US Dollar",
       locale: "en-US",
       decimal: 2,
+      country: "US",
     },
     GBP: {
       code: "GBP",
       symbol: "£",
       name: "British Pound",
       locale: "en-GB",
+      country: "GB",
       decimal: 2,
     },
   } as const

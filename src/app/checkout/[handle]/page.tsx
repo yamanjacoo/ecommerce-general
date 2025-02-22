@@ -79,8 +79,15 @@ const CheckoutPage = () => {
               const successMsg =
                 body.message || "Payment processed successfully.";
               toast.success(successMsg);
-              // Optionally redirect after success
-              // router.push("/success");
+              const thankyouparams = new URLSearchParams({
+                name: product.name as string,
+                price: product.price as string,
+                image: product.image as string,
+                endingcard: "3114" as string,
+                address: "",
+                email: "",
+              }).toString();
+              router.push(`/thank-you?${thankyouparams}`);
             }
           }
         },

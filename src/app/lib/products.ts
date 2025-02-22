@@ -2,6 +2,7 @@ import { parse } from "csv-parse/sync"
 import type { Product } from "../types/product"
 import { Condition, FeedBuilder } from '@xcommerceweb/google-merchant-feed';
 import { format } from "date-fns";
+import { DEFAULT_CURRENCY } from "../components/currency";
 
 const CSV_URLS = [
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/output_part1-TV4yhkdsn8w3TMeDd7AewqrAJKQx4V.csv",
@@ -60,8 +61,8 @@ console.log(`Using domain: ${siteUrl}`);
         link: product.link,
         imageLink: product.image_link,
         price: {
-          currency: "USD",
-          value: parseFloat(product.price.replace(" USD", ""))
+          currency: `${DEFAULT_CURRENCY.code}`,
+          value: parseFloat(product.price.replace(`${DEFAULT_CURRENCY.code}`, ""))
         },
         availability: product.availability as "in_stock" | "out_of_stock" | "preorder" | "backorder",
         condition:product.condition as Condition,
@@ -120,7 +121,7 @@ function convertToGmcProduct(product: Product): GmcProduct {
       
     link: `${siteUrl}/products/${product.Handle}`, // Must match feed domain
     image_link: product.Images?.[0]?.src || "",
-    price: `${priceValue.toFixed(2)} USD`,
+    price: `${priceValue.toFixed(2)} ${DEFAULT_CURRENCY.code}`,
     availability: product.Status === "active" ? 'in_stock' : 'out_of_stock',
     condition: "new",
     gtin: product.GTIN || '',
@@ -133,15 +134,15 @@ function convertToGmcProduct(product: Product): GmcProduct {
     color: product.Color || 'Multicolor',
     size: product.Size || 'One Size',
     tax: {
-      country: "US",
+      country:`${DEFAULT_CURRENCY.country}`,
       rate: product.TaxRate || 7.0, // Set your actual tax rate
       tax_ship: true
     },
     shipping: {
-      country: "US",
+      country: `${DEFAULT_CURRENCY.country}`,
       service: "Standard",
       price: {
-        currency: "USD",
+        currency: `${DEFAULT_CURRENCY.code}`,
         value: product.ShippingCost || 0.00
       }
     },
