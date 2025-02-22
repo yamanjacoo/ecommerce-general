@@ -7,6 +7,8 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import CardPaymentForm from "../../components/checkout/cardForm";
+import { Button } from "@/components/ui/button";
 
 declare global {
   interface Window {
@@ -36,66 +38,12 @@ const CheckoutPage = () => {
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
 
   const sumUpCardRef = useRef<any>(null);
-  const router = useRouter();
 
-  // Load the SumUp script once
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  // Initialize checkout if the user selects credit card
   useEffect(() => {
     if (openMethod === "credit-card") {
       initializeCheckout();
     }
   }, [openMethod]);
-
-  // Mount SumUp widget once we have a checkoutId
-  useEffect(() => {
-    if (checkoutId && openMethod === "credit-card" && window.SumUpCard) {
-      sumUpCardRef.current = window.SumUpCard.mount({
-        checkoutId,
-        onResponse: (type: string, body: any) => {
-          if (
-            body &&
-            typeof body.status === "string" &&
-            body.status.trim() !== ""
-          ) {
-            console.log("SumUp status:", body.status);
-            setIsProcessing(false);
-            if (body.status === "FAILED") {
-              const errorMsg =
-                body.message || "Payment failed. Please try again.";
-              toast.error(errorMsg);
-            } else {
-              const successMsg =
-                body.message || "Payment processed successfully.";
-              toast.success(successMsg);
-              // Optionally redirect after success
-              // router.push("/success");
-            }
-          }
-        },
-        showSubmitButton: false,
-        preferredPaymentMethods: ["card", "applePay", "googlePay"],
-      });
-    }
-
-    return () => {
-      if (sumUpCardRef.current) {
-        sumUpCardRef.current.unmount();
-      }
-    };
-  }, [checkoutId, openMethod, router]);
-
-  // Fetch SumUp checkoutId from your API
   const initializeCheckout = async () => {
     try {
       setIsLoading(true);
@@ -119,17 +67,6 @@ const CheckoutPage = () => {
       toast.error("Failed to initialize payment");
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  // Handle the Pay button for credit card or PayPal
-  const handleSubmit = () => {
-    if (openMethod === "credit-card" && sumUpCardRef.current) {
-      setIsProcessing(true);
-      sumUpCardRef.current.submit();
-    } else if (openMethod === "paypal") {
-      console.log("Processing PayPal payment");
-      // Insert your PayPal logic here
     }
   };
 
@@ -248,20 +185,20 @@ const CheckoutPage = () => {
           <h2 className="text-xl font-semibold mb-4">Payment</h2>
 
           {/* CREDIT CARD ACCORDION ITEM */}
-          <div className="mb-2">
+          <div className="">
             {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("credit-card")}
-              className={`flex items-center justify-between p-4 bg-gray-50 cursor-pointer rounded-t-lg border-2 ${
+              className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer rounded-t-lg border-2 ${
                 openMethod === "credit-card"
                   ? "border-black"
                   : "border-transparent"
               }`}
             >
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 border-gray-600 rounded-full flex items-center justify-center">
+                <div className="w-5 h-5 border-2 border-black rounded-full flex items-center justify-center">
                   {openMethod === "credit-card" && (
-                    <div className="w-3 h-3 bg-gray-600 rounded-full" />
+                    <div className="w-3 h-3 bg-black rounded-full" />
                   )}
                 </div>
                 <span className="font-medium">Credit Card</span>
@@ -289,7 +226,7 @@ const CheckoutPage = () => {
             <div
               className={`transition-all duration-300 overflow-hidden px-4 ${
                 openMethod === "credit-card"
-                  ? "max-h-[1000px] border border-gray-200 rounded-b-lg"
+                  ? "max-h-[1000px] border border-gray-200"
                   : "max-h-0"
               }`}
             >
@@ -300,7 +237,19 @@ const CheckoutPage = () => {
                       Loading payment form...
                     </div>
                   ) : (
-                    <div id="sumup-card" className="w-full" />
+                    <CardPaymentForm
+                      checkoutId={checkoutId as string}
+                      amount={Number(product.price)}
+                      onSuccess={() => {
+                        // Handle successful payment
+                        toast.success("Payment successful");
+                      }}
+                      onError={(error) => {
+                        // Handle payment error
+                        toast.error("Failed to process payment");
+                      }}
+                    />
+                    // <div id="sumup-card" className="w-full" />
                   )}
                 </div>
               )}
@@ -312,14 +261,14 @@ const CheckoutPage = () => {
             {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("paypal")}
-              className={`flex items-center justify-between p-4 bg-gray-50 cursor-pointer rounded-t-lg border-2 ${
+              className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer  border-2 ${
                 openMethod === "paypal" ? "border-black" : "border-transparent"
               }`}
             >
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 border-gray-600 rounded-full flex items-center justify-center">
+                <div className="w-5 h-5 border-2 border-black rounded-full flex items-center justify-center">
                   {openMethod === "paypal" && (
-                    <div className="w-3 h-3 bg-gray-600 rounded-full" />
+                    <div className="w-3 h-3 bg-black rounded-full" />
                   )}
                 </div>
                 <span className="font-medium">PayPal</span>
@@ -359,28 +308,12 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Save Information */}
-        {/* <div className="mb-8">
-          <label className="flex items-center">
-            <input type="checkbox" className="mr-2" />
-            <span className="text-sm">Save this information for next time</span>
-          </label>
-        </div> */}
-
         {/* Proceed Button (for Credit Card only) */}
-        {openMethod === "credit-card" && (
-          <button
-            onClick={handleSubmit}
-            disabled={isLoading || isProcessing}
-            className="w-full h-12 text-base font-medium mt-6 bg-black text-white rounded"
-          >
-            {isLoading
-              ? "Loading form..."
-              : isProcessing
-              ? "Processing Payment..."
-              : `Pay ${product.price}`}
-          </button>
-        )}
+        {/* {openMethod === "credit-card" && (
+          <Button type="submit" className="w-full" disabled={isProcessing}>
+            {isProcessing ? "Processing..." : `Pay ${formattedAmount}`}
+          </Button>
+        )} */}
         {openMethod === "paypal" && (
           <SimplePayPalButton amount={formattedAmount} />
         )}

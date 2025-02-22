@@ -6,8 +6,9 @@ import "./styles/testimonials.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TopHeader from "./components/TopHeader";
-import { Toaster } from "sonner";
+
 import { CartProvider } from "../context/cartProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,12 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="overflow-x-hidden">
+        <Toaster position="top-center" reverseOrder={false} />
         <CartProvider>
           <TopHeader />
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />
-          <Toaster position="top-center" />
         </CartProvider>
       </body>
     </html>
