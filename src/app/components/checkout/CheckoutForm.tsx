@@ -1,21 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import CheckoutSteps from "./CheckoutSteps"
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import CheckoutSteps from "./CheckoutSteps";
 
-const steps = ["Contact", "Shipping", "Payment", "Review"]
+const steps = ["Contact", "Shipping", "Payment", "Review"];
 
 const contactSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
-})
+});
 
 const shippingSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -26,27 +39,33 @@ const shippingSchema = z.object({
   state: z.string().min(2, "Please select a state"),
   zipCode: z.string().min(5, "ZIP code must be at least 5 characters"),
   country: z.string().min(2, "Please select a country"),
-})
+});
 
 const billingSchema = shippingSchema.extend({
   sameAsShipping: z.boolean(),
-})
+});
 
 const paymentSchema = z.object({
   cardNumber: z.string().min(16, "Card number must be at least 16 digits"),
   cardName: z.string().min(2, "Name on card must be at least 2 characters"),
-  expirationDate: z.string().min(5, "Please enter a valid expiration date (MM/YY)"),
+  expirationDate: z
+    .string()
+    .min(5, "Please enter a valid expiration date (MM/YY)"),
   cvv: z.string().min(3, "CVV must be at least 3 digits"),
-})
+});
 
 type CheckoutFormProps = {
-  step: number
-  onNextStep: () => void
-  onPrevStep: () => void
-}
+  step: number;
+  onNextStep: () => void;
+  onPrevStep: () => void;
+};
 
-export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps) {
-  const [shippingData, setShippingData] = useState({})
+export function CheckoutForm({
+  step,
+  onNextStep,
+  onPrevStep,
+}: CheckoutFormProps) {
+  const [shippingData, setShippingData] = useState({});
 
   const contactForm = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
@@ -54,7 +73,7 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
       email: "",
       phone: "",
     },
-  })
+  });
 
   const shippingForm = useForm<z.infer<typeof shippingSchema>>({
     resolver: zodResolver(shippingSchema),
@@ -68,7 +87,7 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
       zipCode: "",
       country: "US",
     },
-  })
+  });
 
   const billingForm = useForm<z.infer<typeof billingSchema>>({
     resolver: zodResolver(billingSchema),
@@ -83,7 +102,7 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
       zipCode: "",
       country: "US",
     },
-  })
+  });
 
   const paymentForm = useForm<z.infer<typeof paymentSchema>>({
     resolver: zodResolver(paymentSchema),
@@ -93,29 +112,29 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
       expirationDate: "",
       cvv: "",
     },
-  })
+  });
 
   const onContactSubmit = (data: z.infer<typeof contactSchema>) => {
-    console.log(data)
-    onNextStep()
-  }
+    console.log(data);
+    onNextStep();
+  };
 
   const onShippingSubmit = (data: z.infer<typeof shippingSchema>) => {
-    console.log(data)
-    setShippingData(data)
-    onNextStep()
-  }
+    console.log(data);
+    setShippingData(data);
+    onNextStep();
+  };
 
   const onBillingSubmit = (data: z.infer<typeof billingSchema>) => {
-    console.log(data)
-    onNextStep()
-  }
+    console.log(data);
+    onNextStep();
+  };
 
   const onPaymentSubmit = (data: z.infer<typeof paymentSchema>) => {
-    console.log(data)
+    console.log(data);
     // Here you would typically send the data to your payment processor
-    alert("Order placed successfully!")
-  }
+    alert("Order placed successfully!");
+  };
 
   return (
     <div className="space-y-8">
@@ -124,7 +143,10 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
       <div className="bg-white rounded-lg shadow-md p-6">
         {step === 1 && (
           <Form {...contactForm}>
-            <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-6">
+            <form
+              onSubmit={contactForm.handleSubmit(onContactSubmit)}
+              className="space-y-6"
+            >
               <FormField
                 control={contactForm.control}
                 name="email"
@@ -158,7 +180,10 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
 
         {step === 2 && (
           <Form {...shippingForm}>
-            <form onSubmit={shippingForm.handleSubmit(onShippingSubmit)} className="space-y-6">
+            <form
+              onSubmit={shippingForm.handleSubmit(onShippingSubmit)}
+              className="space-y-6"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={shippingForm.control}
@@ -233,7 +258,10 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>State</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select a state" />
@@ -271,7 +299,10 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Country</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select a country" />
@@ -301,7 +332,10 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
 
         {step === 3 && (
           <Form {...paymentForm}>
-            <form onSubmit={paymentForm.handleSubmit(onPaymentSubmit)} className="space-y-6">
+            <form
+              onSubmit={paymentForm.handleSubmit(onPaymentSubmit)}
+              className="space-y-6"
+            >
               <FormField
                 control={paymentForm.control}
                 name="cardNumber"
@@ -349,7 +383,12 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
                     <FormItem>
                       <FormLabel>CVV</FormLabel>
                       <FormControl>
-                        <Input placeholder="123" type="password" maxLength={4} {...field} />
+                        <Input
+                          placeholder="CVV"
+                          type="password"
+                          maxLength={3}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -367,6 +406,5 @@ export function CheckoutForm({ step, onNextStep, onPrevStep }: CheckoutFormProps
         )}
       </div>
     </div>
-  )
+  );
 }
-
