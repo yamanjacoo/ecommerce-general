@@ -9,6 +9,7 @@ import TopHeader from "./components/TopHeader";
 
 import { CartProvider } from "../context/cartProvider";
 import { Toaster } from "react-hot-toast";
+import { getProducts } from "./lib/products";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,11 +26,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const products = await getProducts();
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -42,10 +44,11 @@ export default function RootLayout({
         <Toaster position="top-center" reverseOrder={false} />
         <CartProvider>
           <TopHeader />
-          <Header />
+           <Header products={products} />
           <main className="min-h-screen">{children}</main>
-          <Footer />
+            <Footer />
         </CartProvider>
+        
       </body>
     </html>
   );
