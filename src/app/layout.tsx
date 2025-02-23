@@ -10,6 +10,7 @@ import TopHeader from "./components/TopHeader";
 import { CartProvider } from "../context/cartProvider";
 import { Toaster } from "react-hot-toast";
 import { getProducts } from "./lib/products";
+import { ProductsProvider } from "../context/productsProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const products = await getProducts();
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -43,12 +45,12 @@ export default async function RootLayout({
       <body className="overflow-x-hidden">
         <Toaster position="top-center" reverseOrder={false} />
         <CartProvider>
+          <ProductsProvider products={products} />
           <TopHeader />
-           <Header products={products} />
+          <Header products={products} />
           <main className="min-h-screen">{children}</main>
-            <Footer />
+          <Footer />
         </CartProvider>
-        
       </body>
     </html>
   );
