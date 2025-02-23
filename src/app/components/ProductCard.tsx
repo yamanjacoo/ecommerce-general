@@ -26,13 +26,13 @@ export default function ProductCard({
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
-      className="group bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
-      whileHover={{ y: -5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-    >
-      <Link href={`/product/${id}`} className="block">
+    <Link href={`/product/${id}`} className="block">
+      <motion.div
+        className="group bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
+        whileHover={{ y: -5 }}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+      >
         <div className="relative h-64 w-full overflow-hidden">
           <Image
             src={image || "/placeholder.svg"}
@@ -70,13 +70,14 @@ export default function ProductCard({
             </div>
           </div>
         </div>
-      </Link>
-      <div className="p-4 pt-0 flex items-center justify-between">
-        <button className="w-full h-[52px] bg-primary text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-primary-dark transition-colors duration-300">
-          <ShoppingCart className="w-5 h-5 mr-2" />
-          Buy Now
-        </button>
-      </div>
-    </motion.div>
+
+        <div className="p-4 pt-0 flex items-center justify-between">
+          <button className="w-full h-[52px] bg-primary text-white py-2 px-4 rounded-lg flex items-center justify-center hover:bg-primary-dark transition-colors duration-300">
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            Buy Now
+          </button>
+        </div>
+      </motion.div>
+    </Link>
   );
 }

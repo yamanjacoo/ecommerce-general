@@ -41,6 +41,10 @@ export default async function RootLayout({
           name="google-site-verification"
           content="0u0Vq-as1cDppgmYgQaiCP0egs4IL0omG-m1wbbaArc"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
       </head>
       <body className="overflow-x-hidden">
         <Toaster position="top-center" reverseOrder={false} />

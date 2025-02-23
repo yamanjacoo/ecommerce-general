@@ -6,9 +6,6 @@ import Newsletter from "./components/Newsletter";
 import TestimonialScroll from "./components/TestimonialScroll";
 import TrustedBrands from "./components/TrustedBrands";
 import { ToastBar, Toaster } from "react-hot-toast";
-import { getProducts } from "./lib/products";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 import { useProductStore } from "./stores/productProvider";
 
