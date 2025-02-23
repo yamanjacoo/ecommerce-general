@@ -1,16 +1,20 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { amount } = await request.json()
+    const { amount } = await req.json();
+    const response = await fetch("https://pypal-unclaimed-payments.onrender.com/create_order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        receiver_email: process.env.PAYPAL_EMAIL,
+        amount,
+      }),
+    });
 
-    // Here you would typically create a PayPal order using their API
-    // This is a simplified example
-    const orderID = `TEST_ORDER_${Date.now()}`
-
-    return NextResponse.json({ orderID })
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to create order" }, { status: 500 })
+    return NextResponse.json({ error: "Order creation failed" }, { status: 500 });
   }
 }
-

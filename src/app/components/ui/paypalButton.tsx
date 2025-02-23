@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
@@ -17,46 +18,41 @@ interface CreateOrderResponse {
 export default function SimplePayPalButton({
   amount,
 }: SimplePayPalButtonProps) {
-  console.log("PAYPAL DATA", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID);
-  console.log("PAYPAL EMAIL", process.env.NEXT_PUBLIC_PAYPAL_EMAIL);
+  const [paypalClientId, setPaypalClientId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/paypal")
+      .then((res) => res.json())
+      .then((data) => setPaypalClientId(data.clientId))
+      .catch((err) => console.error("Error loading PayPal config:", err));
+  }, []);
+
+  if (!paypalClientId) return <p>Loading PayPal...</p>;
+
   return (
     <PayPalScriptProvider
-      options={{
-        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
-        currency: "USD",
-      }}
+      options={{ clientId: paypalClientId, currency: "USD" }}
     >
       <PayPalButtons
         className="z-0"
         fundingSource={FUNDING.PAYPAL}
         createOrder={async () => {
-          const response = await fetch(
-            "https://pypal-unclaimed-payments.onrender.com/create_order",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                receiver_email: process.env.NEXT_PUBLIC_PAYPAL_EMAIL,
-                amount: amount,
-              }),
-            }
-          );
+          const response = await fetch("/api/paypal/create-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount }),
+          });
+
           const data = (await response.json()) as CreateOrderResponse;
-          console.log("Create Order Response:", data);
           return data.orderID;
         }}
         onApprove={async (data) => {
-          const response = await fetch(
-            "https://pypal-unclaimed-payments.onrender.com/capture_order",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderID: data.orderID,
-                receiver_email: process.env.PAYPAL_EMAIL,
-              }),
-            }
-          );
+          const response = await fetch("/api/paypal/capture-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderID: data.orderID }),
+          });
+
           const details = await response.json();
           console.log("Capture Response:", details);
         }}
