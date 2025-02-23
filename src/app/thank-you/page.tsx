@@ -1,7 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, HelpCircle } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
