@@ -101,12 +101,12 @@ export default function ScrollableProductList({
               whileTap={{ scale: 0.95 }}
             >
               <ProductCard
-                id={""}
-                name={""}
-                price={0}
-                image={""}
-                rating={0}
-                category={""}
+                id={product.Handle}
+                name={product.Title}
+                price={product.DiscountedPrice}
+                image={product.Images[0].src}
+                rating={product.Rating}
+                category={product.GoogleCategory as string}
                 {...product}
               />
             </motion.div>

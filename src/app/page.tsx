@@ -5,14 +5,17 @@ import Newsletter from "./components/Newsletter";
 import TestimonialScroll from "./components/TestimonialScroll";
 import TrustedBrands from "./components/TrustedBrands";
 import { ToastBar, Toaster } from "react-hot-toast";
+import { getProducts } from "./lib/products";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
+ 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <HeroSection />
       <FeaturedCategories />
       <TrustedBrands />
-      <ProductSections />
+      <ProductSections product={products} />
       <TestimonialScroll />
       <Newsletter />
     </main>
