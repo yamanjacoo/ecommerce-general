@@ -4,6 +4,7 @@ import {
   PayPalButtons,
   FUNDING,
 } from "@paypal/react-paypal-js";
+import { DEFAULT_CURRENCY } from "../currency";
 
 interface SimplePayPalButtonProps {
   amount: string;
@@ -16,11 +17,12 @@ interface CreateOrderResponse {
 export default function SimplePayPalButton({
   amount,
 }: SimplePayPalButtonProps) {
+  console.log("PAYPAL DATA", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID);
+  console.log("PAYPAL EMAIL", process.env.NEXT_PUBLIC_PAYPAL_EMAIL);
   return (
     <PayPalScriptProvider
       options={{
-        clientId:
-          "Ab-_RGJfzR_nlzigMBpi7ca4fNNjS2nlqTdRUylABhCLkVUTZy7KdOWb9xPEGmNq262xkObg7NQlzLN6",
+        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
         currency: "USD",
       }}
     >
@@ -34,7 +36,7 @@ export default function SimplePayPalButton({
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                receiver_email: process.env.PAYPAL_EMAIL,
+                receiver_email: process.env.NEXT_PUBLIC_PAYPAL_EMAIL,
                 amount: amount,
               }),
             }

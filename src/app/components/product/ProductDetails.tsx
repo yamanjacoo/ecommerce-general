@@ -259,7 +259,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 Shipping Information
               </h3>
               <ul className="space-y-2 text-gray-600">
-                <li>Free standard shipping on orders over $50</li>
+                <li>Free shipping - International shipping </li>
                 <li>Express shipping available at checkout</li>
                 <li>International shipping available to select countries</li>
               </ul>
