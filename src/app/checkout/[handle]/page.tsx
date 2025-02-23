@@ -391,7 +391,7 @@ const CheckoutPage = () => {
           </button>
         )}
         {openMethod === "paypal" && (
-          <SimplePayPalButton amount={formattedAmount} />
+          <SimplePayPalButton amount={product?.price?.toString() || "0"} />
         )}
       </div>
 
