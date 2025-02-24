@@ -36,6 +36,9 @@ const CheckoutPage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
 
+  // New state for country selection (defaulting to "usa")
+  const [country, setCountry] = useState("usa");
+
   const sumUpCardRef = useRef<any>(null);
   const router = useRouter();
 
@@ -92,7 +95,6 @@ const CheckoutPage = () => {
           }
         },
         showSubmitButton: false,
-
         preferredPaymentMethods: ["card", "applePay", "googlePay"],
       });
     }
@@ -168,22 +170,6 @@ const CheckoutPage = () => {
         <div className="flex flex-col gap-2 md:my-6 my-4">
           {/* Example PayPal express button up top */}
           <SimplePayPalButton amount={product?.price?.toString() || "0"} />
-          {/* <div className="flex gap-2">
-            <button className="flex-1 bg-black h-[50px] text-white py-3 rounded-lg flex items-center justify-center">
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fapay.svg?alt=media&token=2a26f752-8816-437b-bd8c-c5b27ac8c712"
-                alt="Apple Pay"
-                className="h-14 w-14"
-              />
-            </button>
-            <button className="flex-1 bg-black h-[50px] text-white py-3 rounded-lg flex items-center justify-center">
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/transport-7d83f.firebasestorage.app/o/pay%2Fgpay.svg?alt=media&token=74dfed25-c9a8-4954-9e40-0bbebe876273"
-                alt="Google Pay"
-                className="h-14 w-14"
-              />
-            </button>
-          </div> */}
         </div>
 
         <div className="flex w-full mb-6 justify-center items-center">
@@ -223,12 +209,89 @@ const CheckoutPage = () => {
               className="p-3 border border-gray-300 rounded-lg"
             />
           </div>
+
+          <select
+            size={1}
+            autoComplete="shipping country"
+            data-backup="country"
+            className="w-full p-3 border border-gray-300 rounded-lg mt-4 appearance-none bg-[url('/icons/arrow-down.svg')] bg-no-repeat bg-right bg-center pr-10"
+            aria-required="true"
+            name="checkout[shipping_address][country]"
+            id="checkout_shipping_address_country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          >
+            <option value="usa">United States</option>
+            <option value="albania">Albania</option>
+            <option value="andorra">Andorra</option>
+            <option value="armenia">Armenia</option>
+            <option value="austria">Austria</option>
+            <option value="azerbaijan">Azerbaijan</option>
+            <option value="belarus">Belarus</option>
+            <option value="belgium">Belgium</option>
+            <option value="bosnia-and-herzegovina">
+              Bosnia and Herzegovina
+            </option>
+            <option value="bulgaria">Bulgaria</option>
+            <option value="croatia">Croatia</option>
+            <option value="cyprus">Cyprus</option>
+            <option value="czechia">Czechia (Czech Republic)</option>
+            <option value="denmark">Denmark</option>
+            <option value="estonia">Estonia</option>
+            <option value="finland">Finland</option>
+            <option value="france">France</option>
+            <option value="georgia">Georgia</option>
+            <option value="germany">Germany</option>
+            <option value="greece">Greece</option>
+            <option value="hungary">Hungary</option>
+            <option value="iceland">Iceland</option>
+            <option value="ireland">Ireland</option>
+            <option value="italy">Italy</option>
+            <option value="kazakhstan">Kazakhstan</option>
+            <option value="kosovo">Kosovo</option>
+            <option value="latvia">Latvia</option>
+            <option value="liechtenstein">Liechtenstein</option>
+            <option value="lithuania">Lithuania</option>
+            <option value="luxembourg">Luxembourg</option>
+            <option value="malta">Malta</option>
+            <option value="moldova">Moldova</option>
+            <option value="monaco">Monaco</option>
+            <option value="montenegro">Montenegro</option>
+            <option value="netherlands">Netherlands</option>
+            <option value="north-macedonia">North Macedonia</option>
+            <option value="norway">Norway</option>
+            <option value="poland">Poland</option>
+            <option value="portugal">Portugal</option>
+            <option value="romania">Romania</option>
+            <option value="san-marino">San Marino</option>
+            <option value="serbia">Serbia</option>
+            <option value="slovakia">Slovakia</option>
+            <option value="slovenia">Slovenia</option>
+            <option value="spain">Spain</option>
+            <option value="sweden">Sweden</option>
+            <option value="switzerland">Switzerland</option>
+            <option value="turkey">Turkey</option>
+            <option value="ukraine">Ukraine</option>
+            <option value="united-kingdom">United Kingdom</option>
+            <option value="vatican-city">Vatican City</option>
+          </select>
+
           <input
             type="text"
             placeholder="Address"
             className="w-full p-3 border border-gray-300 rounded-lg mt-4"
           />
-          <div className="grid grid-cols-3 gap-2 mt-4">
+          <input
+            type="text"
+            placeholder="Apartment, Suite, etc. (optional)"
+            className="w-full p-3 border border-gray-300 rounded-lg mt-4"
+          />
+
+          <div
+            className={`grid ${
+              country === "usa" ? "grid-cols-3" : "grid-cols-2"
+            } gap-2 mt-4`}
+          >
             <input
               type="text"
               placeholder="City"
@@ -239,11 +302,13 @@ const CheckoutPage = () => {
               placeholder="Zip Code"
               className="p-3 border border-gray-300 rounded-lg"
             />
-            <input
-              type="text"
-              placeholder="State"
-              className="p-3 border border-gray-300 rounded-lg"
-            />
+            {country === "usa" && (
+              <input
+                type="text"
+                placeholder="State"
+                className="p-3 border border-gray-300 rounded-lg"
+              />
+            )}
           </div>
           <input
             type="tel"
@@ -258,7 +323,6 @@ const CheckoutPage = () => {
 
           {/* CREDIT CARD ACCORDION ITEM */}
           <div className="mb-0">
-            {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("credit-card")}
               className={`flex items-center justify-between p-4  bg-[#F5F5F5] cursor-pointer rounded-t-lg border-2 ${
@@ -293,8 +357,6 @@ const CheckoutPage = () => {
                 />
               </div>
             </div>
-
-            {/* Expanded Content: soft gray border when open */}
             <div
               className={`transition-all duration-300 overflow-hidden px-4 ${
                 openMethod === "credit-card"
@@ -318,7 +380,6 @@ const CheckoutPage = () => {
 
           {/* PAYPAL ACCORDION ITEM */}
           <div className="mb-2">
-            {/* Header: black border if selected, otherwise transparent */}
             <div
               onClick={() => toggleMethod("paypal")}
               className={`flex items-center justify-between p-4 bg-[#F5F5F5] cursor-pointer   border-2 ${
@@ -339,8 +400,6 @@ const CheckoutPage = () => {
                 className="h-6"
               />
             </div>
-
-            {/* Expanded Content: soft gray border when open */}
             <div
               className={`transition-all duration-300 overflow-hidden px-4 bg-[#F9FAFB] ${
                 openMethod === "paypal"
@@ -350,7 +409,6 @@ const CheckoutPage = () => {
             >
               {openMethod === "paypal" && (
                 <div className="py-4 flex flex-col items-center text-center ">
-                  {/* Simple placeholder icon or use your own */}
                   <Image
                     src={"/download.svg"}
                     alt={""}
@@ -367,14 +425,6 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
-
-        {/* Save Information */}
-        {/* <div className="mb-8">
-          <label className="flex items-center">
-            <input type="checkbox" className="mr-2" />
-            <span className="text-sm">Save this information for next time</span>
-          </label>
-        </div> */}
 
         {/* Proceed Button (for Credit Card only) */}
         {openMethod === "credit-card" && (
