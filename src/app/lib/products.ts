@@ -119,7 +119,7 @@ function convertToGmcProduct(product: Product): GmcProduct {
       .replace(/\s+/g, ' ')
       .trim(),
       
-    link: `${siteUrl}/products/${product.Handle}`, // Must match feed domain
+    link: `${siteUrl}/product/${product.Handle}`, // Must match feed domain
     image_link: product.Images?.[0]?.src || "",
     price: `${priceValue.toFixed(2)} ${DEFAULT_CURRENCY.code}`,
     availability: product.Status === "active" ? 'in_stock' : 'out_of_stock',
